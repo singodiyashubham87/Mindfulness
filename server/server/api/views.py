@@ -20,3 +20,5 @@ def index(request):
 class FeedbackView(ListAPIView):
     queryset = FeedbackModel.objects.all()
     serializer_class = FeedbackSerializer
+
+
