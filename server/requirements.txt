@@ -1,4 +1,4 @@
 django
 djangorestframework
 django-allauth
-django-rest-swagger==2.2.0
+dj-rest-auth
