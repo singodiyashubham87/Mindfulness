@@ -9,7 +9,7 @@ router = routers.DefaultRouter()
 # router.register(r'questions',QuestionsViewSet)
 
 urlpatterns = [
-    path('index/',index),
+    path('index/',index, name="home"),
     path('feedback/',FeedbackView.as_view(), name="feedback"),
     path('',include(router.urls))
 ]
