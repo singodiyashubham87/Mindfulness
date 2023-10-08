@@ -1,5 +1,5 @@
 from django.contrib import admin
-from api.models import FeedbackModel
+from api.models import AssessmentModel
 
 # Register your models here.
-admin.site.register(FeedbackModel)
+admin.site.register(AssessmentModel)
