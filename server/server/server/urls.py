@@ -10,8 +10,9 @@ urlpatterns = [
     # path('api/auth/', include('allauth.urls')),
     # path('api/auth/token/', obtain_auth_token, name='api-token-auth'),
    
-    path('api/', include('dj_rest_auth.urls')),
-     path('api/registration/', include('dj_rest_auth.registration.urls')),
+    path('api/auth', include('dj_rest_auth.urls')),
+    path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('api-auth/',include('rest_framework.urls')),
     path('admin/', admin.site.urls),
     
    

@@ -1,8 +1,19 @@
 from rest_framework import serializers 
-from api.models import FeedbackModel
+from api.models import AssessmentModel
+from django.contrib.auth.models import User
 
-class FeedbackSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = FeedbackModel
-        fields = '__all__'
+        model = AssessmentModel
+        fields = ['username','datetime', 'score']
 
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+class ResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AssessmentModel
+        fields = ['score',]
