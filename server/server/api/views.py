@@ -19,14 +19,33 @@ def index(request):
         return Response({'Message':'This is post request method'})
 
 
-# when user clicks on the profile page, he will be shown his basic info
+# when user clicks on the profile page, he will be shown his basic info like name, email
 # and his scores till now.
 class ProfileView(ListAPIView):
     def get(self,request, *args, **kwargs):
-        pass
-        # serializers used: profile, user
-        # return username, email from User
-        # return date, score from cuurent user from model assesment
+        user = request.user
+        user_obj = User.objects.get(username=user)
+        user_email = user_obj.email
+        user_name = user_obj.username
+        user_info ={
+            "name":user_name,
+            "email" : user_email
+        }
+        assessment_obj = AssessmentModel.objects.filter(username = user)
+        assessment_dict={}
+        num=0
+        for i in assessment_obj:
+            nested={}
+            nested['score']=i.score
+            nested['datetime']=i.datetime
+            print(i.datetime.timestamp)
+            key_name = num
+            num +=1
+            assessment_dict[key_name]=nested
+        # print(user_info)
+        # print(assessment_dict)
+        
+        return Response(data=(user_info,assessment_dict),status=status.HTTP_200_OK)
 
 
 # After the assessment, user will be redirected to result page, if user wants to save the score, he must be authenticated
