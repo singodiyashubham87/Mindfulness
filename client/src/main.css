@@ -1,4 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=DM+Sans:opsz@9..40&family=Poppins&display=swap');
+
 /* Tailwind directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
