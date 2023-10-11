@@ -16,7 +16,7 @@ function Homepage() {
             alt="logo"
           />
           <div className="userProfile  w-[5rem] h-[5rem] rounded-[50%]">
-            <img src={userAvatar} alt="userAvatarLogo" />
+            <img src={userAvatar} alt="userAvatarLogo" className="cursor-pointer"/>
           </div>
         </nav>
           <div className="landingPageText m-auto flex flex-col items-center justify-center  w-[50%]">
@@ -24,7 +24,7 @@ function Homepage() {
             <h4 className="text-[#5F5A5A] text-[2.2rem] w-[60%] text-center mt-[0.5rem]">
               Assess your mental health status by answering some questions.
             </h4>
-            <button className="text-[2rem] bg-[#D9D9D9] py-[0.3rem] px-[2rem] rounded-[2rem] mt-[0.8rem]">Start Test</button>
+            <button className="transition ease-in-out  text-[2rem] bg-[#D9D9D9] py-[0.3rem] px-[2rem] rounded-[2rem] mt-[0.8rem] hover:bg-black hover:text-[#D9D9D9]">Start Test</button>
           </div>
       </div>
     </>
