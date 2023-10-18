@@ -6,7 +6,7 @@ function Homepage() {
   return (
     <>
       <div
-        className="homePage w-[100%] h-[100vh] bg-[image:var(--image-url)] font-primary"
+        className="homePage w-[100%] h-[100vh] bg-[image:var(--image-url)] font-primary border-2 border-black"
         style={{ "--image-url": `url(${landingPageBanner})` }}
       >
         <nav className="flex items-center px-[4rem] mt-[1rem] justify-between">
