@@ -11,12 +11,11 @@ export default {
         primary: 'Balsamiq Sans',
       },
       screens: {
+        'gsm': '571px',
+        'msm': '491px',
         'vsm': '406px',
         'vvsm': '100px',
       },
-    },
-    animation: {
-      'spin': 'spin 2s linear infinite',
     }
   },
   plugins: [],
