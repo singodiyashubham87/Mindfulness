@@ -11,6 +11,8 @@ export default {
         primary: 'Balsamiq Sans',
       },
       screens: {
+        'xxl': '1751px',
+        'mmd': '851px',
         'gsm': '571px',
         'msm': '491px',
         'vsm': '406px',
