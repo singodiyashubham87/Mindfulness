@@ -50,7 +50,7 @@ class ProfileView(ListAPIView):
 
 # After the assessment, user will be redirected to result page, if user wants to save the score, he must be authenticated
 # If he is authenticated, we save their scores.
-class ResultView(APIView):
+class ResultSaveView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self,request, *args, **kwargs):
@@ -70,18 +70,53 @@ class ResultView(APIView):
            
 
 # Takes the assessment answers as argument and feed them into ML model, and returns the predicted score
-class FormView(APIView):
+import pickle
+import pandas as pd
+
+class CalculateResultFromFormView(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self,request, *args, **kwargs):
         try:
-            ans1 = request.data['q1']
-            ans2 = request.data['q2']
-            # check if they are in good format, feed into ml model
-            # as we don't have ML MODEL, let's say we performed concatenation
-            score = ans1+ans2
+            # Receive the input in a list
+            user_input = [[]]
+            for i in range(19):
+                name = 'q'+str(i)
+                user_input[0].append(request.data[name])  
+           
+            print(user_input)
+
+            # load the files
+            pipeline_file = open('model/mental_pipeline.pkl', 'rb')
+            model_file = open('model/mental_model.pkl', 'rb')
+            print(1)
+
+
+            try:
+                pipeline = pickle.load(pipeline_file)
+            except Exception as e:
+                print(f"An error occurred while loading the pickle file: {e}")
+            
+            
+            
+            
+            model = pickle.load(model_file)
+            
+
+            # Convert the user_input to dataframe using the columns
+            column = ['Age','Course','Gender','CGPA','Stress_Level','Anxiety_Score','Sleep_Quality','Physical_Activity','Diet_Quality','Social_Support','Relationship_Status','Substance_Use','Counseling_Service_Use','Family_History','Chronic_Illness','Financial_Stress','Extracurricular_Involvement','Semester_Credit_Load','Residence_Type']
+            input_vector = pd.DataFrame(user_input, columns=column)
+
+            
+            # predict
+            score = model.predict(pipeline.transform(input_vector))
+            print(score)
+
+           
+            pipeline_file.close()
+            model_file.close()
             print("done")
-            return Response({"score":score}, status=status.HTTP_202_ACCEPTED)
+            return Response({"score":score[0]}, status=status.HTTP_202_ACCEPTED)
         except:
             return Response(status=status.HTTP_204_NO_CONTENT)
         
