@@ -1,13 +1,13 @@
 import logo from "../assets/images/logo.png";
-import trackingPageBg from "../assets/images/trackingPageBg.png";
+import assessmentPageBg from "../assets/images/assessmentPageBg.png";
 import kidThinking from "../assets/images/kidThinking.png";
 
 function AssessmentPage() {
   return (
     <>
       <div
-        className="trackingContainer bg-[image:var(--trackingPageBg)] bg-no-repeat bg-center bg-cover relative font-primary"
-        style={{ "--trackingPageBg": `url(${trackingPageBg})` }}
+        className="trackingContainer bg-[image:var(--assessmentPageBg)] bg-no-repeat bg-center bg-cover relative font-primary"
+        style={{ "--assessmentPageBg": `url(${assessmentPageBg})` }}
       >
         <img
           src={logo}
