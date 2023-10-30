@@ -2,3 +2,6 @@ django
 djangorestframework
 django-allauth
 dj-rest-auth
+pandas
+pickle
+scikit-learn
