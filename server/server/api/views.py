@@ -9,6 +9,15 @@ from api.serializers import ResultSerializer
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.generics import ListAPIView
+from allauth.socialaccount.providers.github.views import GitHubOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import SocialLoginView
+
+class GitHubLogin(SocialLoginView):
+    adapter_class = GitHubOAuth2Adapter
+    callback_url = "http://127.0.0.1:8000/"
+    client_class = OAuth2Client
+
 
 
 @api_view(['GET','POST'])
@@ -17,6 +26,18 @@ def index(request):
         return Response({"message":"This is get request method"})
     else:
         return Response({'Message':'This is post request method'})
+
+from django.middleware.csrf import get_token
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
+@csrf_exempt  # to exclude this view from CSRF protection
+def get_csrf_token(request):
+    if request.method == 'GET':
+        csrf_token = get_token(request)
+        print("this is hereeeeeeeeeeeee"+csrf_token)
+        return JsonResponse({"csrf_token":csrf_token},status=status.HTTP_200_OK)
+
 
 
 # when user clicks on the profile page, he will be shown his basic info like name, email

@@ -9,8 +9,8 @@ djangorestframework = "*"
 django-rest-auth = "*"
 coreapi = "==2.3.3"
 pyyaml = "==5.1.2"
-dj-rest-auth = {version = "*", extras = ["with_social"]}
 pandas = "*"
+dj-rest-auth = {version = "*", extras = ["with_social"]}
 
 [dev-packages]
 
