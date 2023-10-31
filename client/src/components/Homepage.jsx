@@ -6,7 +6,7 @@ function Homepage() {
   return (
     <>
       <div className="trackingContainer bg-[#ffd801] w-[100vw] h-[100vh] font-primary relative border-2 border-black">
-        <div className="w-full overflow-hidden h-[70%] absolute bottom-[0] border-2 border-black">
+        <div className="w-full overflow-hidden h-[70%] absolute bottom-[0]">
           <img
             src={landingPageBanner}
             alt="background image"
