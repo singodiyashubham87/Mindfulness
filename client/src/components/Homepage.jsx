@@ -5,8 +5,8 @@ import avatar from "../assets/images/avatar.png";
 function Homepage() {
   return (
     <>
-      <div className="trackingContainer bg-[#ffd801] w-[100vw] h-[100vh] font-primary relative border-2 border-black  z-[-100]">
-        <div className="w-full overflow-hidden h-full xl:h-[80%] absolute bottom-[0]">
+      <div className="trackingContainer bg-[#ffd801] w-[100vw] h-[100vh] font-primary relative border-2 border-black">
+        <div className="w-full overflow-hidden h-[70%] absolute bottom-[0] border-2 border-black">
           <img
             src={landingPageBanner}
             alt="background image"
