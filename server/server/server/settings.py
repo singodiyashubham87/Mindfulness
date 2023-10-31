@@ -49,13 +49,18 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
     'dj_rest_auth.registration',  
+
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    
+
     
 ]
 
 AUTHENTICATION_BACKENDS = (
     # Other backends
+    'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
@@ -80,6 +85,9 @@ LOGIN_REDIRECT_URL = 'home'
 
 # Configure email backend for Allauth (if needed)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

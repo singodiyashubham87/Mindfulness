@@ -11,8 +11,8 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('',index, name="home"),
     path('profile/', ProfileView.as_view(), name='profileview'),
-    path('form/', CalculateResultFromFormView.as_view(), name='formview'),
-    path('form/result/', ResultSaveView.as_view(), name='resultview'),
+    path('form/result/', CalculateResultFromFormView.as_view(), name='formview'),
+    path('form/save/', ResultSaveView.as_view(), name='resultview'),
     path('',include(router.urls))
 ]
     
