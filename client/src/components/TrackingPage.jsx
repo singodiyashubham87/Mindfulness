@@ -2,6 +2,7 @@ import logo from "../assets/images/logo.png";
 import trackingPageBg from "../assets/images/trackingPageBg.png";
 import mediumTrackingPageBg from "../assets/images/mediumTrackingPageBg.png";
 import smiley from "../assets/images/smiley.png";
+import avatar from "../assets/images/avatar.png";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function TrackingPage() {
@@ -26,6 +27,11 @@ function TrackingPage() {
             />
           </picture>
         </div>
+        <img
+          src={trackingPageBg}
+          alt="background image"
+          className="absolute bottom-[0]"
+        />
 
         {!isAuthenticated ? (
           <button
@@ -106,6 +112,16 @@ function TrackingPage() {
                       </div>
                     </div>
                   </div>
+                <h3 className="userName text-[1.5rem]">{user.name}</h3>
+              </div>
+              <div className="assessmentHistory flex flex-col justify-center items-center w-full">
+                <h3 className="assessmentHistory text-[1.5rem] mb-[0.5rem]">
+                  Assessment History
+                </h3>
+                <div className="divPool px-[1rem] flex flex-col justify-center items-center gap-2 w-full overflow-y-auto">
+                  <div className="data bg-[#FF8020] h-[5rem] w-full border-2 border-black rounded-[0.625rem]"></div>
+                  <div className="data bg-[#FF8020] h-[5rem] w-full border-2 border-black rounded-[0.625rem]"></div>
+                  <div className="data bg-[#FF8020] h-[5rem] w-full border-2 border-black rounded-[0.625rem]"></div>
                 </div>
               </div>
             </div>
