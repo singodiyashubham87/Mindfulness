@@ -25,7 +25,7 @@ function Homepage() {
         </nav>
         <div className="landingPageText m-auto flex flex-col items-center justify-center w-[100%] absolute top-[50%] left-[50%] translate-x-[-50%]	translate-y-[-50%]">
           <h1 className="text-[5rem] leading-[1.2]">Mindfulness</h1>
-          <h4 className="text-[#5F5A5A] text-[2rem] w-[90%] text-center mt-[0.5rem]">
+          <h4 className="text-[#5F5A5A] text-[2rem] w-[90%] text-center mt-[0.5rem] md:w-[60%] mmd:w-[55%] lg:w-[45%] xl:w-[40%]">
             Assess your mental health status by answering some questions.
           </h4>
           <button className="transition ease-in-out  text-[2rem] bg-[#D9D9D9] py-[0.3rem] px-[2rem] rounded-[2rem] mt-[0.8rem] hover:bg-black hover:text-[#D9D9D9]">
