@@ -1,8 +1,24 @@
+import axios from "axios";
 import landingPageBanner from "../assets/images/landingPageBg.png";
 import logo from "../assets/images/logo.png";
 import avatar from "../assets/images/avatar.png";
 
 function Homepage() {
+
+const handleAssessmentClick = () => {
+  console.log("clicked!")
+  axios.get('http://127.0.0.1:8000/get-csrf-token/', {
+    name: 'master',
+    
+  })
+    .then(response => {
+      console.log(response.data); // Handle success response
+    })
+    .catch(error => {
+      console.error(error); // Handle error
+    });
+};
+
   return (
     <>
       <div className="trackingContainer bg-[#ffd801] w-[100vw] h-[100vh] font-primary relative border-2 border-black">
@@ -28,7 +44,7 @@ function Homepage() {
           <h4 className="text-[#5F5A5A] text-[2rem] w-[90%] text-center mt-[0.5rem] md:w-[60%] mmd:w-[55%] lg:w-[45%] xl:w-[40%]">
             Assess your mental health status by answering some questions.
           </h4>
-          <button className="transition ease-in-out  text-[2rem] bg-[#D9D9D9] py-[0.3rem] px-[2rem] rounded-[2rem] mt-[0.8rem] hover:bg-black hover:text-[#D9D9D9]">
+          <button className="transition ease-in-out  text-[2rem] bg-[#D9D9D9] py-[0.3rem] px-[2rem] rounded-[2rem] mt-[0.8rem] hover:bg-black hover:text-[#D9D9D9]" onClick={handleAssessmentClick}>
             Start Test
           </button>
         </div>

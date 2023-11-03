@@ -92,7 +92,7 @@ class ResultSaveView(APIView):
 
 # Takes the assessment answers as argument and feed them into ML model, and returns the predicted score
 import pickle
-# import pandas as pd
+import pandas as pd
 
 class CalculateResultFromFormView(APIView):
     permission_classes = (permissions.AllowAny,)

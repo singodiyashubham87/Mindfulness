@@ -5,3 +5,4 @@ dj-rest-auth
 pandas
 pickle
 scikit-learn
+django-cors-headers

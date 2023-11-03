@@ -25,7 +25,21 @@ SECRET_KEY = 'django-insecure-2psv)g=epunil*df#2m0d^&r5hq+v5jg6$eww0_pff%7vp)&uu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1'] # for localhost use 127.0.0.1 when this will change when deploye
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173", # add url of frontend from api request is generated
+]
+
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
 
 
 # Application definition
@@ -54,6 +68,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     
+    "corsheaders", # cors
 
     
 ]
@@ -98,6 +113,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+
 ]
 
 ROOT_URLCONF = 'server.urls'
