@@ -10,7 +10,9 @@ django-rest-auth = "*"
 coreapi = "==2.3.3"
 pyyaml = "==5.1.2"
 pandas = "*"
-dj-rest-auth = {version = "*", extras = ["with_social"]}
+dj-rest-auth = "*"
+django-allauth = "*"
+scikit-learn = "*"
 
 [dev-packages]
 
