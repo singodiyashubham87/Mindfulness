@@ -4,6 +4,7 @@ import avatar from "../assets/images/avatar.png";
 import { Link } from "react-router-dom";
 
 function Homepage() {
+
   return (
     <>
       <div className="trackingContainer bg-[#ffd801] w-[100vw] h-[100vh] font-primary relative border-2 border-black">
