@@ -3,5 +3,5 @@ djangorestframework
 django-allauth
 dj-rest-auth
 pandas
-
+django-cors-headers
 scikit-learn
