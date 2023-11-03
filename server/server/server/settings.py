@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
-    'corsheaders',
     'allauth',
     'allauth.account',
     'dj_rest_auth.registration',  
@@ -100,6 +99,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+
+
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
