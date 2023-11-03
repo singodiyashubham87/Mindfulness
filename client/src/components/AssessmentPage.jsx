@@ -1,6 +1,7 @@
 import logo from "../assets/images/logo.png";
 import assessmentPageBg from "../assets/images/assessmentPageBg.png";
 import kidThinking from "../assets/images/kidThinking.png";
+import { Link } from "react-router-dom";
 
 function AssessmentPage() {
   return (
@@ -9,11 +10,13 @@ function AssessmentPage() {
         className="trackingContainer bg-[image:var(--assessmentPageBg)] bg-no-repeat bg-center bg-cover relative font-primary"
         style={{ "--assessmentPageBg": `url(${assessmentPageBg})` }}
       >
-        <img
-          src={logo}
-          alt="logo"
-          className="w-[8rem] absolute top-[1rem] left-[1rem] vvsm:w-[6rem]"
-        />
+        <Link to={"/"}>
+          <img
+            src={logo}
+            alt="logo"
+            className="absolute top-[1rem] left-[1rem] vvsm:w-[6rem] lg:w-[8rem] lg:top-[2rem] lg:left-[2rem]"
+          />
+        </Link>
         <div className="content h-[100vh] flex justify-center items-center">
           <div className="left hidden md:block flex justify-center items-center w-[25%]">
             <img
@@ -33,9 +36,15 @@ function AssessmentPage() {
                     How will you rate your inner peace?
                   </span>
                   <div className="optionButtons w-[98%] flex justify-between mb-[0.5rem] mt-[0.5rem] xl:w-[90%]">
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] hover:bg-black hover:text-[#D9D9D9] ">Not Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Excellent</button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] hover:bg-black hover:text-[#D9D9D9] ">
+                      Not Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Excellent
+                    </button>
                   </div>
                 </div>
                 <div className="q2">
@@ -43,9 +52,15 @@ function AssessmentPage() {
                     How will you rate your inner peace?
                   </span>
                   <div className="optionButtons w-[98%] flex justify-between mb-[0.5rem] mt-[0.5rem] xl:w-[90%]">
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Not Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Excellent</button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Not Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Excellent
+                    </button>
                   </div>
                 </div>
                 <div className="q3">
@@ -53,9 +68,15 @@ function AssessmentPage() {
                     How will you rate your inner peace?
                   </span>
                   <div className="optionButtons w-[98%] flex justify-between mb-[0.5rem] mt-[0.5rem] xl:w-[90%]">
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Not Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Excellent</button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Not Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Excellent
+                    </button>
                   </div>
                 </div>
                 <div className="q4">
@@ -63,9 +84,15 @@ function AssessmentPage() {
                     How will you rate your inner peace?
                   </span>
                   <div className="optionButtons w-[98%] flex justify-between mb-[0.5rem] mt-[0.5rem] xl:w-[90%]">
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Not Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Excellent</button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Not Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Excellent
+                    </button>
                   </div>
                 </div>
                 <div className="q5">
@@ -73,9 +100,15 @@ function AssessmentPage() {
                     How will you rate your inner peace?
                   </span>
                   <div className="optionButtons w-[98%] flex justify-between mb-[0.5rem] mt-[0.5rem] xl:w-[90%]">
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Not Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Excellent</button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Not Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Excellent
+                    </button>
                   </div>
                 </div>
                 <div className="q5">
@@ -83,9 +116,15 @@ function AssessmentPage() {
                     How will you rate your inner peace?
                   </span>
                   <div className="optionButtons w-[98%] flex justify-between mb-[0.5rem] mt-[0.5rem] xl:w-[90%]">
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Not Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Excellent</button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Not Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Excellent
+                    </button>
                   </div>
                 </div>
                 <div className="q5">
@@ -93,9 +132,15 @@ function AssessmentPage() {
                     How will you rate your inner peace?
                   </span>
                   <div className="optionButtons w-[98%] flex justify-between mb-[0.5rem] mt-[0.5rem] xl:w-[90%]">
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Not Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Excellent</button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Not Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Excellent
+                    </button>
                   </div>
                 </div>
                 <div className="q5">
@@ -103,13 +148,25 @@ function AssessmentPage() {
                     How will you rate your inner peace?
                   </span>
                   <div className="optionButtons w-[98%] flex justify-between mb-[0.5rem] mt-[0.5rem] xl:w-[90%]">
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Not Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Good</button>
-                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">Excellent</button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Not Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Good
+                    </button>
+                    <button className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] ">
+                      Excellent
+                    </button>
                   </div>
                 </div>
-              </div> 
-              <input type="submit" className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] mt-[1.5rem]" value={"Submit"} />
+              </div>
+              <Link to={"/result"}>
+                <input
+                  type="submit"
+                  className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] mt-[1.5rem]"
+                  value={"Submit"}
+                />
+              </Link>
             </form>
           </div>
         </div>

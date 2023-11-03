@@ -4,6 +4,7 @@ import mediumTrackingPageBg from "../assets/images/mediumTrackingPageBg.png";
 import smiley from "../assets/images/smiley.png";
 import avatar from "../assets/images/avatar.png";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
 function TrackingPage() {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
@@ -12,11 +13,13 @@ function TrackingPage() {
   return (
     <>
       <div className="trackingPageContainer flex flex-col justify-center items-center w-[100vw] h-[100vh] bg-[#f7d681] relative font-primary">
-        <img
-          src={logo}
-          alt="logo"
-          className="w-[8rem] absolute top-[1rem] left-[1rem] vvsm:w-[6rem]"
-        />
+        <Link to={"/"}>
+          <img
+            src={logo}
+            alt="logo"
+            className="absolute top-[2rem] left-[2rem] cursor-pointer vvsm:w-[6rem] lg:w-[8rem] lg:top-[2rem] lg:left-[2rem]"
+          />
+        </Link>
         <div className="w-[100vw] overflow-hidden h-[70%] absolute bottom-[0]">
           <picture>
             <source media="(min-width: 768px)" srcSet={mediumTrackingPageBg} />
@@ -43,7 +46,7 @@ function TrackingPage() {
                 <div className="userAvatar w-[5rem] h-[5rem] border-2 border-black rounded-[50%] overflow-hidden">
                   <img
                     src={user.picture}
-                    alt={`${user.name}_avatar`}
+                    alt="avatar"
                     className="w-full h-full object-cover"
                   />
                 </div>
