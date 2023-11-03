@@ -13,6 +13,7 @@ pandas = "*"
 dj-rest-auth = "*"
 django-allauth = "*"
 scikit-learn = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
