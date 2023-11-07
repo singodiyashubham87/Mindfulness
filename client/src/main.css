@@ -11,3 +11,14 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+ /* Assessment Page Form inputs styling */
+input[type="radio"]:checked+.optionText{
+    background-color: #000;
+    color: #D9D9D9;
+}
+
+input[type="radio"]:hover+.optionText{
+    background-color: #000;
+    color: #D9D9D9;
+}

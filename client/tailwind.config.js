@@ -15,6 +15,7 @@ export default {
         'mmd': '851px',
         'gsm': '571px',
         'msm': '491px',
+        'buttonsm': '441px',
         'vsm': '406px',
         'vvsm': '100px',
       },
