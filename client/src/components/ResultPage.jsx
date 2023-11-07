@@ -1,14 +1,29 @@
 import resultArt from "../assets/images/resultArt.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "../assets/images/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function ResultPage() {
-  const [status, setStatus] = useState("Wohoo!");
+  // Get the current location
+  const location = useLocation();
+  // Extract the assessmentResult from the location state
+  const assessmentResult = location.state?.assessmentResult;
+
+  // States to manage various aspects of the result
+  const [status, setStatus] = useState("Ahaan!");
   const [testResult, setTestResult] = useState("Little or no Stress!");
-  const [recommendation, setRecommendation] = useState(
-    "Stay joyful and be relaxed"
-  );
+  const [recommendation, setRecommendation] = useState("Stay joyful and be relaxed");
+
+  // Use useEffect to modify status based on assessmentResult changes
+  useEffect(() => {
+    // Update variable values based on the assessment result
+    if (assessmentResult === "Master") {
+      setStatus("Happpp!");
+      setTestResult("Little or no Stress!");
+      setRecommendation("Stay joyful and be relaxed");
+    }
+  }, [assessmentResult]); // Re-run the effect whenever assessmentResult changes
+
 
   return (
     <>
