@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import assessmentPageBg from "../assets/images/assessmentPageBg.png";
 import kidThinking from "../assets/images/kidThinking.png";
+import axios from 'axios';
 
 function AssessmentPage() {
   // Navigation control
@@ -11,11 +12,20 @@ function AssessmentPage() {
   // Function to handle form submission
   function handleSubmit(e) {
     e.preventDefault();
-    let data = {};
+    let formData = {};
     for(let i=0;i<10;i++){
-      data[`q${i}`]= `${selectedOptions[i]}`;
+      formData[`q${i}`]= `${selectedOptions[i]}`;
     }
-    console.log(data);
+    console.log(formData);
+    axios.post("http://localhost:8000/api/user/",{
+      "user": {
+        "email": "admin@example.com",
+      },
+      "data": formData,
+    }).then(res=>{
+      console.log(res.data);
+    })
+    console.log("request successful");
     // navigateTo("/result", { state: { assessmentResult: data } });
   }
 
