@@ -51,6 +51,7 @@ def userView(request):
             instance.save()
             return Response({"message":"data is saved", "data":serializer.data})
         else:
+            # if userModel.object.get(email=serializer)
             return Response({"message":"formate not match",})
 
 
