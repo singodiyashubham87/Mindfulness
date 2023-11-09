@@ -31,20 +31,33 @@ def userView(request):
 
     if request.method == "POST":
         data = request.data
-        serializer = userSerializer(data=data)
+
+        # print(data['user'],"+++++++++++++++++++++++++++++++++++++++++++++++")
+        user = data['user']
+        print(user,"++++++++++++++++++++++++++++++++")
+        answer = data['data']
+        print(answer,"---------------------------------")
+
+        # call ml model here
+        score = 80
+
+
+        serializer = userSerializer(data=user)
         if serializer.is_valid():
+            # if email is present:
+                # append new score in assessement table 
+            # else:  below will work 
             instance = userModel.objects.create(email = serializer.data['email'])
             instance.save()
             return Response({"message":"data is saved", "data":serializer.data})
         else:
-            return Response({"message":"formate not match","data" : serializer.__format__})
+            return Response({"message":"formate not match",})
 
 
 
 @api_view(['POST'])
 def accessmentView(request):
     data = request.data
-    # call ml function
     return Response({"message": "Got some data!", "data": request.data})
             
 
