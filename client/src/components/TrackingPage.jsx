@@ -7,8 +7,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
 function TrackingPage() {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, user , getAccessTokenSilently, getIdTokenClaims} = useAuth0();
   const date = new Date();
+  const meth = useAuth0();
+
+  if(isAuthenticated){
+    const getUserMetadata = async () => {
+      const accessToken = await getAccessTokenSilently();
+      const tokenClaims = await getIdTokenClaims();
+      console.log(`accessToken = `);
+      console.log(accessToken);
+      console.log(`tokekClaims: `);
+      console.log(tokenClaims);
+    };
+    getUserMetadata();
+  }
 
   return (
     <>
