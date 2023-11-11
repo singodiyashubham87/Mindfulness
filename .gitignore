@@ -2,5 +2,7 @@ node_modules
 .env.local
 venv
 server-env
+__pycache__
 *.sqlite3
 *.pyc
+.vscode
