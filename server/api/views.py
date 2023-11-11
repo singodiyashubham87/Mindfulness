@@ -89,10 +89,5 @@ def saveResultView(request):
             
     
 
-# @api_view(['POST'])
-# def accessmentView(request):
-#     data = request.data
-#     return Response({"message": "Got some data!", "data": request.data})
-            
 
 
