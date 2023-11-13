@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Homepage from "./components/Homepage";
-import AssessmentPage from "./components/AssessmentPage";
-import ResultPage from "./components/ResultPage";
-import TrackingPage from "./components/TrackingPage";
+import Homepage from "./pages/Homepage";
+import AssessmentPage from "./pages/AssessmentPage";
+import ResultPage from "./pages/ResultPage";
+import TrackingPage from "./pages/TrackingPage";
 
 function App() {
   return (
