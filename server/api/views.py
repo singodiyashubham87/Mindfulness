@@ -38,8 +38,8 @@ def userView(request):
         import pickle
         import pandas as pd
 
-        pipeline_file = open('api\\ml_model\\mental_pipeline.pkl', 'rb')
-        model_file = open('api\\ml_model\\mental_model.pkl', 'rb')
+        pipeline_file = open('api//ml_model//mental_pipeline.pkl', 'rb')
+        model_file = open('api//ml_model//mental_model.pkl', 'rb')
         print(1)
         
         try:
