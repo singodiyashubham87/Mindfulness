@@ -17,6 +17,7 @@ export default {
         'msm': '491px',
         'buttonsm': '441px',
         'vsm': '406px',
+        'formsm': '351px',
         'vvsm': '100px',
       },
     }
