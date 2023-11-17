@@ -19,7 +19,7 @@ from rest_framework.decorators import api_view
 @api_view(['GET','POST'])
 def userView(request):   
     if request.method == "GET":
-        email = request.data['email']
+        email = request.data["email"]
         user_score_instance = AssessmentModel.objects.filter(user_id=email)
         serializer = assesmentSerializer(user_score_instance, many=True)
         return Response(serializer.data)
@@ -38,8 +38,8 @@ def userView(request):
         import pickle
         import pandas as pd
 
-        pipeline_file = open('api//ml_model//mental_pipeline.pkl', 'rb')
-        model_file = open('api//ml_model//mental_model.pkl', 'rb')
+        pipeline_file = open('api/ml_model/mental_pipeline.pkl', 'rb')
+        model_file = open('api/ml_model/mental_model.pkl', 'rb')
         print(1)
         
         try:
