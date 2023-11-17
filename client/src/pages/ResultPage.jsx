@@ -32,7 +32,7 @@ function ResultPage() {
           <img
             src={logo}
             alt="logo"
-            className="absolute top-[2rem] left-[2rem] vvsm:w-[6rem] lg:w-[8rem] lg:top-[2rem] lg:left-[2rem]"
+            className="absolute top-[2rem] left-[2rem] vvsm:w-[5rem] msm:w-[6rem] lg:w-[8rem] lg:top-[2rem] lg:left-[2rem]"
           />
         </Link>
         <div className="resultText w-[85%] h-[55%] md:h-[60%] md:w-[75%] flex flex-col justify-evenly items-center">

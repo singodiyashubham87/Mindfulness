@@ -105,7 +105,7 @@ function AssessmentPage() {
           <img
             src={logo}
             alt="logo"
-            className="absolute top-[1rem] left-[1rem] vvsm:w-[6rem] lg:w-[8rem] lg:top-[2rem] lg:left-[2rem]"
+            className="absolute top-[1rem] left-[1rem] vvsm:w-[3.5rem] vsm:w-[4rem] md:w-[6rem] lg:w-[8rem] lg:top-[2rem] lg:left-[2rem]"
           />
         </Link>
         <div className="content h-[100vh] flex justify-center items-center">
@@ -116,13 +116,12 @@ function AssessmentPage() {
               className="w-[100%]"
             />
           </div>
-          <div className="right flex justify-center items-center w-[100%] h-[75%] md:w-[70%] mmd:w-[60%] xl:w-[50%] xl:h-[80%]  2xl:w-[45%]">
+          <div className="right flex justify-center items-center w-[100%] h-[75%] md:w-[70%] mmd:w-[60%] xl:w-[50%] xl:h-[80%] 2xl:w-[45%]">
             <form
-              action="http://localhost:8000/api/user/"
               id="myForm"
-              className="assessmentForm text-center w-[90%] h-[95%] bg-[#D1BA9180] rounded-[0.625rem] p-[0.5rem] pt-[2rem] pl-[1.5rem] px-[1rem] gsm:w-[85%] sm:w-[80%] md:w-[100%]"
+              className="assessmentForm text-center w-[98%] formsm:w-[96%] vsm:w-[94%] h-[95%] bg-[#D1BA9180] rounded-[0.625rem]  pt-[2rem] pl-[.2rem] formsm:pl-[0.4rem] vsm:pl-[0.5rem] msm:pl-[1rem] gsm:w-[90%] gsm:px-[0.8rem] gsm:pl-[1.5rem] sm:w-[85%] md:w-[100%]"
             >
-              <div className="questions rounded-[0.625rem] overflow-y-auto h-[85%] text-left">
+              <div className="questions rounded-[0.625rem] overflow-y-auto h-[90%] text-left">
                 <div className="q0">
                   <Question question={"Q. What is your current age?"} />
                   <Buttons
@@ -434,7 +433,7 @@ function AssessmentPage() {
               </div>
               <input
                 type="submit"
-                className="text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[0.7rem] buttonsm:px-[1rem] msm:px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] mt-[1.5rem]"
+                className="text-[1rem] vsm:text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[0.7rem] buttonsm:px-[1rem] msm:px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] mt-[0.5rem]"
                 value={"Submit"}
                 onClick={handleSubmit}
               />

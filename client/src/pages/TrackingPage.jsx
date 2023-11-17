@@ -30,7 +30,7 @@ function TrackingPage() {
           <img
             src={logo}
             alt="logo"
-            className="absolute top-[2rem] left-[2rem] cursor-pointer vvsm:w-[6rem] lg:w-[8rem] lg:top-[2rem] lg:left-[2rem]"
+            className="absolute top-[2rem] left-[2rem] cursor-pointer vvsm:w-[5rem] msm:w-[6rem] lg:w-[8rem] lg:top-[2rem] lg:left-[2rem]"
           />
         </Link>
         <div className="w-[100vw] overflow-hidden h-[70%] absolute bottom-[0]">
