@@ -17,4 +17,4 @@ class userSerializer(serializers.ModelSerializer):
 class assesmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AssessmentModel
-        fields = ['user_id', 'score']
+        fields = '__all__'

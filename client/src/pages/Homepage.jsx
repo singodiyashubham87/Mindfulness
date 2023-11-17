@@ -9,11 +9,13 @@ function Homepage() {
     <>
       <div className="trackingContainer bg-[#ffd801] w-[100vw] h-[100vh] font-primary relative border-2 border-black">
         <div className="w-full overflow-hidden h-[70%] absolute bottom-[0]">
+        <Link to={"/"}>
           <img
             src={landingPageBanner}
             alt="background image"
             className="absolute bottom-[0] w-full 2xl:bottom-[-10%] xxl:bottom-[-18%]"
           />
+          </Link>
         </div>
         <nav className="flex items-center px-[2rem] mt-[1rem] justify-between lg:px-[4rem] lg:mt-[2rem] xl:pr-[8rem] 2xl:pr-[12rem]">
           <img src={logo} className="vvsm:w-[5rem] md:w-[6rem] lg:w-[8rem]" alt="logo" />

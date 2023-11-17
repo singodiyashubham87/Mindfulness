@@ -20,6 +20,9 @@ export default {
         'formsm': '351px',
         'vvsm': '100px',
       },
+      animation: {
+        'spin': 'spin 2s linear infinite',
+      }
     }
   },
   plugins: [],
