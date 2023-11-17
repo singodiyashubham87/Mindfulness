@@ -19,7 +19,7 @@ from rest_framework.decorators import api_view
 @api_view(['GET','POST'])
 def userView(request):   
     if request.method == "GET":
-        email = request.data['email']
+        email = request.query_params.get('email', '')
         user_score_instance = AssessmentModel.objects.filter(user_id=email)
         serializer = assesmentSerializer(user_score_instance, many=True)
         return Response(serializer.data)

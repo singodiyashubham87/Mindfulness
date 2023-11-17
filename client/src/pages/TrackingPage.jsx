@@ -2,25 +2,41 @@ import logo from "../assets/images/logo.png";
 import trackingPageBg from "../assets/images/trackingPageBg.png";
 import mediumTrackingPageBg from "../assets/images/mediumTrackingPageBg.png";
 import smiley from "../assets/images/smiley.png";
-import avatar from "../assets/images/avatar.png";
+import AuthLoader from "../components/AuthLoader";
+import Loader from "../components/Loader";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
 function TrackingPage() {
-  const { loginWithRedirect, logout, isAuthenticated, user , getAccessTokenSilently, getIdTokenClaims} = useAuth0();
+  const { loginWithRedirect, logout, isLoading, isAuthenticated, user } =
+    useAuth0();
+  const [loader, setLoader] = useState(false); //loader variable
   const date = new Date();
-  const meth = useAuth0();
 
-  if(isAuthenticated){
-    const getUserMetadata = async () => {
-      const accessToken = await getAccessTokenSilently();
-      const tokenClaims = await getIdTokenClaims();
-      console.log(`accessToken = `);
-      console.log(accessToken);
-      console.log(`tokekClaims: `);
-      console.log(tokenClaims);
-    };
-    getUserMetadata();
+  const reqBody = { email: "examplee@gmail.com" };
+  const getData = () => {
+    axios
+      .get("http://127.0.0.1:8000/api/user/", {
+        params: reqBody
+      })
+      .then((res) => console.log(res));
+  };
+
+  const handleLogin = () => {
+    // loginWithRedirect();
+    getData();
+  };
+
+  // Show Loader component
+  const showLoader = () => {
+    setLoader(true);
+  };
+
+  // Returns Authentication Loader component if authentication is in progress
+  if (isLoading) {
+    return <AuthLoader />;
   }
 
   return (
@@ -43,11 +59,10 @@ function TrackingPage() {
             />
           </picture>
         </div>
-
         {!isAuthenticated ? (
           <button
             className="bg-[#FF8020] text-black text-[1.5rem] sm:text-[2rem] px-[2rem] sm:px-[4rem] hover:bg-white hover:text-black border-2 border-black rounded-[0.625rem] z-[1]"
-            onClick={() => loginWithRedirect()}
+            onClick={handleLogin}
           >
             Log In
           </button>
@@ -138,6 +153,7 @@ function TrackingPage() {
             </button>
           </>
         )}
+        {loader && <Loader />}
       </div>
     </>
   );
