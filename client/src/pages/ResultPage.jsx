@@ -4,25 +4,34 @@ import logo from "../assets/images/logo.png";
 import { Link, useLocation } from "react-router-dom";
 
 function ResultPage() {
-  // Get the current location
-  const location = useLocation();
-  // Extract the assessmentResult from the location state
-  const assessmentResult = location.state?.assessmentResult;
-
   // States to manage various aspects of the result
-  const [status, setStatus] = useState("Ahaan!");
-  const [testResult, setTestResult] = useState("Little or no Stress!");
-  const [recommendation, setRecommendation] = useState("Stay joyful and be relaxed");
+  const [status, setStatus] = useState("Not Working!");
+  const [testResult, setTestResult] = useState("Kam hi nahi kar raha!");
+  const [recommendation, setRecommendation] = useState("Kuch mat kar bhai");
 
-  // Use useEffect to modify status based on assessmentResult changes
+    // Get the current location
+    const location = useLocation();
+    // Extract the assessment score from the location state
+    const assessmentScore = location.state?.assessmentScore.score;
+    
+
+  // Use useEffect to modify status based on assessmentScore changes
   useEffect(() => {
-    // Update variable values based on the assessment result
-    if (assessmentResult === "Master") {
-      setStatus("Happpp!");
+    // Update variable values based on the assessment score
+    if (assessmentScore < 1.7) {
+      setStatus("Yeeah!");
       setTestResult("Little or no Stress!");
       setRecommendation("Stay joyful and be relaxed");
+    }else if(assessmentScore > 1.7 && assessmentScore < 3.4){
+      setStatus("Ahaan!");
+      setTestResult("Moderate amount of Stress!");
+      setRecommendation("Increase physical activity & think positive");      
+    }else if(assessmentScore>=3.4){
+      setStatus("Oh No!");
+      setTestResult("High stress level!");
+      setRecommendation("Consult a Psychiatrist!");      
     }
-  }, [assessmentResult]); // Re-run the effect whenever assessmentResult changes
+  }, []); // Empty dependency array to run the effect only once
 
 
   return (
