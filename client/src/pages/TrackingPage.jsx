@@ -17,11 +17,23 @@ function TrackingPage() {
 
   const reqBody = { email: "examplee@gmail.com" };
   const getData = () => {
+    // axios.post("http://127.0.0.1:8000/api/saveresult/", {"user":"examplee@gmail.com", "score": 48}).then(res=>console.log(res));
     axios
       .get("http://127.0.0.1:8000/api/user/", {
         params: reqBody
       })
-      .then((res) => console.log(res));
+      .then((res) => {
+        res.data[0]
+        for(let i=0;i<res.data.length;i++){
+          console.log(`For User ${res.data[i].user_id}`);
+          console.log(`id = ${res.data[i].id}`);
+          console.log(`score = ${res.data[i].id}`);
+          let timestamp = res.data[i].datetime;
+          const dateObject = new Date(timestamp);
+          console.log(`date = ${dateObject.getDate()}/${dateObject.getMonth()+1}/${dateObject.getFullYear()}`);
+        }
+      });
+      
   };
 
   const handleLogin = () => {

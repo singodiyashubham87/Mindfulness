@@ -6,24 +6,27 @@ import kidThinking from "../assets/images/kidThinking.png";
 import axios from "axios";
 import Question from "../components/Question";
 import Buttons from "../components/Buttons";
+import Loader from "../components/Loader";
 
 function AssessmentPage() {
-  // Navigation control
-  const navigateTo = useNavigate();
+  const navigateTo = useNavigate(); // Navigation control
+  const [loader, setLoader] = useState(false); //loader variable
+
+  const showLoader = () => setLoader(true);
+  const hideLoader = () => setLoader(false);
 
   // Function to handle form submission
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     //getting form element as variable
-    const form = document.getElementById("myForm"); 
-    
+    const form = document.getElementById("myForm");
+
     // validating if user answered all questions
-    if (!form.checkValidity())
-      alert(
-        "Please answer all questions"
-      ); 
+    if (!form.checkValidity()) alert("Please answer all questions");
     else {
+      showLoader(); // show loader until score is calculated
+
       let formData = {}; //json object to store form answers as body data
       for (let i = 0; i < 19; i++) {
         //Handling exceptional cases where answers are in range instead of fixed value
@@ -67,21 +70,37 @@ function AssessmentPage() {
             break;
         }
 
-        if (i === 0 || i === 2 || i === 3 || i === 4 || i === 5 || i === 13 || i === 14 || i === 15 || i === 17) //Skipping exceptional cases handled above
+        if (
+          i === 0 ||
+          i === 2 ||
+          i === 3 ||
+          i === 4 ||
+          i === 5 ||
+          i === 13 ||
+          i === 14 ||
+          i === 15 ||
+          i === 17
+        )
+          //Skipping exceptional cases handled above
           continue;
 
         formData[`q${i}`] = `${selectedOptions[i]}`; // storing values in json object as it is for normal cases
       }
-      console.log(formData);
-      axios
+
+      // Posting form data to get assessment Score
+      let score = -1;
+      await axios
         .post("http://localhost:8000/api/user/", {
           data: formData,
         })
         .then((res) => {
-          console.log(res.data);
+          score = res.data;
         });
-      console.log("request successful");
-      // navigateTo("/result", { state: { assessmentResult: data } });
+
+      // Hide loader after score is fetched
+      hideLoader();
+      // Navigate to result page after score is fetched
+      navigateTo("/result", { state: { assessmentScore: score } });
     }
   }
 
@@ -439,6 +458,7 @@ function AssessmentPage() {
               />
             </form>
           </div>
+          {loader && <Loader />}
         </div>
       </div>
     </>
