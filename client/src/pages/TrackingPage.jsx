@@ -133,12 +133,14 @@ function TrackingPage() {
                       trackingData.map((ele, i) => {
                         let timestamp = ele.datetime;
                         let assessmentDate = new Date(timestamp);
+                        let status = ele.score>40?"Good": "Moderate";
                         return (
                           <TrackDiv
                             key={i}
                             date={assessmentDate.getDate()}
                             month={assessmentDate.getMonth() + 1}
                             year={assessmentDate.getFullYear()}
+                            status={status}
                           />
                         );
                       })
