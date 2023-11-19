@@ -7,13 +7,21 @@ import axios from "axios";
 import Question from "../components/Question";
 import Buttons from "../components/Buttons";
 import Loader from "../components/Loader";
+import Modal from "../components/Modal";
 
 function AssessmentPage() {
   const navigateTo = useNavigate(); // Navigation control
   const [loader, setLoader] = useState(false); //loader variable
+  const [showModal, setshowModal] = useState(false); //toggle popup modal
 
+  // Show & Hide Model
+  const openModal = () => setshowModal(true);
+  const closeModal = () => setshowModal(false);
+
+  // Show & Hide Loader
   const showLoader = () => setLoader(true);
   const hideLoader = () => setLoader(false);
+  
 
   // Function to handle form submission
   async function handleSubmit(e) {
@@ -23,8 +31,9 @@ function AssessmentPage() {
     const form = document.getElementById("myForm");
 
     // validating if user answered all questions
-    if (!form.checkValidity()) alert("Please answer all questions");
-    else {
+    if (!form.checkValidity()){
+      openModal();
+    } else {
       showLoader(); // show loader until score is calculated
 
       let formData = {}; //json object to store form answers as body data
@@ -116,6 +125,9 @@ function AssessmentPage() {
 
   return (
     <>
+          {showModal && (
+        <Modal alert="Alert" alertError="Please answer all Questions!" closeModal={closeModal} />
+      )}
       <div
         className="trackingContainer bg-[image:var(--assessmentPageBg)] bg-no-repeat bg-center bg-cover relative font-primary"
         style={{ "--assessmentPageBg": `url(${assessmentPageBg})` }}
