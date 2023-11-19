@@ -10,49 +10,46 @@ import axios from "axios";
 import TrackDiv from "../components/TrackDiv";
 
 function TrackingPage() {
-  const { loginWithRedirect, logout, isLoading, isAuthenticated, user } = useAuth0();
+  const { loginWithRedirect, logout, isLoading, isAuthenticated, user } =
+    useAuth0();
   const [loader, setLoader] = useState(false); //loader variable
-  const [trackDivs, setTrackDivs] = useState(false);
+  const [showGetDataButton, setShowGetDataButton] = useState(true);
+  const [trackingData, setTrackingData] = useState([]); //tracking data array
 
-
-  const handleTrackDiv = () => {
-    // Show loader while getting data from backend
-    showLoader();
-
-    const reqBody = { email: "examplee@gmail.com" };
-
-    const getData = async () => {
-    await axios
-    .get("http://127.0.0.1:8000/api/user/", {
+  // Get Track Data from Backend
+  const getData = async (reqBody) => {
+    const res = await axios.get("http://127.0.0.1:8000/api/user/", {
       params: reqBody,
-    })
-    .then((res) => {
-      res.data[0];
-      for (let i = 0; i < res.data.length; i++) {
-        console.log(`For User ${res.data[i].user_id}`);
-        console.log(`id = ${res.data[i].id}`);
-        console.log(`score = ${res.data[i].id}`);
-        let timestamp = res.data[i].datetime;
-        const dateObject = new Date(timestamp);
-        console.log(
-          `date = ${dateObject.getDate()}/${
-            dateObject.getMonth() + 1
-          }/${dateObject.getFullYear()}`
-          );
-        }
-      });
-    };
-    // Hide loader and Show tracking divs
-    hideLoader();
-    setTrackDivs(true);
-  }
+    });
+    setTrackingData(res.data);
+  };
 
-  // Handle user login 
+  // Function to handle click on Get Tracking Data button
+  const handleGetTrackingData = () => {
+    try {
+      // Show loader while getting data from backend
+      showLoader();
+
+      const reqBody = { email: "examplee@gmail.com" };
+      getData(reqBody);
+
+      // Hide the "Get Tracking Data" button
+      setShowGetDataButton(false);
+    } catch (error) {
+      console.error("Error fetching tracking data:", error);
+    } finally {
+      // Hide loader after fetching data
+      hideLoader(true);
+    }
+  };
+
+
+  // Handle user login
   const handleLogin = () => {
     loginWithRedirect();
   };
 
-  // Handle user logout 
+  // Handle user logout
   const handleLogout = () => {
     logout({ logoutParams: { returnTo: window.location.href } });
   };
@@ -124,14 +121,36 @@ function TrackingPage() {
                 <h3 className="assessmentHistory text-[1.5rem] mb-[0.5rem] md:text-[2rem]">
                   Assessment History
                 </h3>
-                {trackDivs?(
+                {!showGetDataButton ? (
                   <div className="divPool flex flex-col justify-center items-center gap-2 w-full sm:w-[90%] sm:px-[1rem] md:w-[80%] mmd:w-[75%] lg:w-[65%] xl:w-[55%] 2xl:w-[45%] overflow-y-auto">
-                    <TrackDiv date="15" month="01" year="2023" />
-                    <TrackDiv date="15" month="01" year="2023" />
-                    <TrackDiv date="15" month="01" year="2023" />
+                    {
+                      trackingData.length === 0 ?(
+                        <div className="bg-[#FF8020] text-black text-[1.5rem] sm:text-[2rem] px-[2rem] sm:px-[4rem] border-2 border-black rounded-[0.625rem]">
+                          No previous record found.
+                        </div>
+                      ):
+                      // Render TrackDiv components with the received tracking data
+                      trackingData.map((ele, i) => {
+                        let timestamp = ele.datetime;
+                        let assessmentDate = new Date(timestamp);
+                        return (
+                          <TrackDiv
+                            key={i}
+                            date={assessmentDate.getDate()}
+                            month={assessmentDate.getMonth() + 1}
+                            year={assessmentDate.getFullYear()}
+                          />
+                        );
+                      })
+                    }
                   </div>
-                ):(
-                  <button className="bg-[#FF8020] text-black text-[1.5rem] sm:text-[2rem] px-[2rem] sm:px-[4rem] hover:bg-white hover:text-black border-2 border-black rounded-[0.625rem]" onClick={handleTrackDiv}>Get Tracking Data</button>
+                ) : (
+                  <button
+                    className="bg-[#FF8020] text-black text-[1.5rem] sm:text-[2rem] px-[2rem] sm:px-[4rem] hover:bg-white hover:text-black border-2 border-black rounded-[0.625rem]"
+                    onClick={handleGetTrackingData}
+                  >
+                    Get Tracking Data
+                  </button>
                 )}
               </div>
             </div>
