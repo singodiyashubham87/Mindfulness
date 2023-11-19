@@ -18,13 +18,13 @@ function Homepage() {
           </Link>
         </div>
         <nav className="flex items-center px-[2rem] mt-[1rem] justify-between lg:px-[4rem] lg:mt-[2rem] xl:pr-[8rem] 2xl:pr-[12rem]">
-          <img src={logo} className="vvsm:w-[5rem] md:w-[6rem] lg:w-[8rem]" alt="logo" />
+          <img src={logo} className="vvsm:w-[5rem] md:w-[6rem] lg:w-[8rem] cursor-pointer" alt="logo" />
           <Link to={"/track"}>
             <div className="userProfile w-[3rem] h-[3rem] md:w-[3.5rem] md:h-[3.5rem] lg:w-[4rem] lg:h-[4rem] rounded-[50%] border-2 border-black overflow-hidden cursor-pointer">
               <img
                 src={avatar}
                 alt="avatarLogo"
-                className="w-full h-full object-cover cursor-pointer"
+                className="w-full h-full object-cover"
               />
             </div>
           </Link>
