@@ -4,7 +4,7 @@ import mediumTrackingPageBg from "../assets/images/mediumTrackingPageBg.png";
 import Loader from "../components/Loader";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import TrackDiv from "../components/TrackDiv";
 
@@ -14,6 +14,13 @@ function TrackingPage() {
   const [trackingData, setTrackingData] = useState([]); //tracking data array
   const [showGetDataButton, setShowGetDataButton] = useState(true);
   
+
+  useEffect(() => {
+    if(localStorage.getItem("getData") == "false") {
+      getData({ email: "examplee@gmail.com" });
+      setShowGetDataButton(false);
+    }
+  },[])
 
   // Get Track Data from Backend
   const getData = async (reqBody) => {
@@ -32,8 +39,10 @@ function TrackingPage() {
       const reqBody = { email: "examplee@gmail.com" };
       getData(reqBody);
 
-      // Hide the "Get Tracking Data" button
+      // Hide the "Get Tracking Data" button and set local storage variable value to false
       setShowGetDataButton(false);
+      localStorage.setItem("getData", "false");
+
     } catch (error) {
       console.error("Error fetching tracking data:", error);
     } finally {
@@ -44,6 +53,7 @@ function TrackingPage() {
 
   // Handle user logout
   const handleLogout = () => {
+    localStorage.clear(); // Clear local storage before logging out
     const redirectUri = import.meta.env.VITE_AUTH0_REDIRECT_URL;
     logout({ logoutParams: { returnTo: redirectUri } });
   };
