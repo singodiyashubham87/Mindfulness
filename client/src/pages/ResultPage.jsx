@@ -33,7 +33,6 @@ function ResultPage() {
     showLoader();
     const data = {"user":"examplee@gmail.com", "score": 33};
     const res = await axios.post("http://127.0.0.1:8000/api/saveresult/",data)
-    console.log(res.data);
     hideLoader();
     openModal();
   }

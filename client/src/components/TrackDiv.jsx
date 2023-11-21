@@ -5,7 +5,7 @@ const TrackDiv = (props) => {
 
   return (
     <div className="data bg-[#FF8020] flex justify-center items-center h-[5rem] w-full border-2 border-black rounded-[0.625rem] relative">
-      <div className="trackData w-[90%] h-[80%] relative">
+      <div className="trackData w-[90%] h-full relative">
         <span className="date absolute top-0 left-0 text-[1.2rem]">
           {date}-{month}-{year}
         </span>

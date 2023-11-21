@@ -9,10 +9,11 @@ import axios from "axios";
 import TrackDiv from "../components/TrackDiv";
 
 function TrackingPage() {
-  const { logout, isLoading, isAuthenticated, user } = useAuth0();
+  const { logout, isLoading, user } = useAuth0();
   const [loader, setLoader] = useState(false); //loader variable
-  const [showGetDataButton, setShowGetDataButton] = useState(true);
   const [trackingData, setTrackingData] = useState([]); //tracking data array
+  const [showGetDataButton, setShowGetDataButton] = useState(true);
+  
 
   // Get Track Data from Backend
   const getData = async (reqBody) => {
@@ -86,7 +87,7 @@ function TrackingPage() {
           </picture>
         </div>
 
-        <div className="content w-[90%] max-h-[70%] flex flex-col justify-center items-center gap-4 z-[1] relative sm:w-[80%] md:gap-8">
+        <div className="content w-[90%] max-h-[70%] flex flex-col justify-center items-center gap-4 z-[1] relative sm:w-[80%] md:gap-8 border-2 border-green-800">
           <div className="userInfo flex gap-4 justify-start items-center">
             <div className="userAvatar w-[5rem] h-[5rem] border-2 border-black rounded-[50%] overflow-hidden">
               <img
@@ -99,13 +100,13 @@ function TrackingPage() {
               {user.name}
             </h3>
           </div>
-          <div className="assessmentHistory flex flex-col justify-center items-center w-full">
-            {!showGetDataButton ? (
+          <div className="assessmentHistory flex flex-col justify-center items-center w-full max-h-[50vh] overflow-y-auto border-2 border-blue-800">
+            {!showGetDataButton? (
               <>
                 <h3 className="assessmentHistory text-[1.5rem] mb-[0.5rem] md:text-[2rem]">
                   Assessment History
                 </h3>
-                <div className="divPool flex flex-col justify-center items-center gap-2 w-full sm:w-[90%] sm:px-[1rem] md:w-[80%] mmd:w-[75%] lg:w-[65%] xl:w-[55%] 2xl:w-[45%] overflow-y-auto">
+                <div className="divPool flex flex-col justify-center items-center gap-2 w-full h-[90%] sm:w-[90%] sm:px-[1rem] md:w-[80%] mmd:w-[75%] lg:w-[65%] xl:w-[55%] 2xl:w-[45%] overflow-y-auto border-2 border-red-800">
                   {trackingData.length === 0 ? (
                     <div className="bg-[#FF8020] text-black text-[1.5rem] sm:text-[2rem] px-[2rem] sm:px-[4rem] border-2 border-black rounded-[0.625rem]">
                       No previous record found.
