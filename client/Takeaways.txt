@@ -1,0 +1,1 @@
+> To preserve the authentication state of user, use cacheLocation="localstorage" prop in AuthProvider.
