@@ -76,16 +76,19 @@ def saveResultView(request):
         print(score)
         user = request.data['user']
         print(user)
+        #######
+        timestamp = request.data['timestamp']
+        print(timestamp)
 
         # If email exists already, the "if" block will execute, else the "else" block will execute
-        serializer = assesmentSerializer(data={'user_id': user, 'score': score})
+        serializer = assesmentSerializer(data={'user_id': user, 'score': score, 'timestamp':timestamp})
         if serializer.is_valid():
             user_instance = userModel.objects.get(email=user)
         else:
             user_instance = userModel.objects.create(email=user)
 
         # Save the new instance score where the email matches
-        instance = AssessmentModel.objects.create(score = score, user_id=user_instance)
+        instance = AssessmentModel.objects.create(score = score, user_id=user_instance, timestamp = timestamp)
         instance.save() 
         
         return Response({"message": "Data saved successfully"})

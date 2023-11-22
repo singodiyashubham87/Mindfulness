@@ -9,4 +9,5 @@ class userModel(models.Model):
 class AssessmentModel(models.Model):
     user_id = models.ForeignKey(userModel, on_delete=models.CASCADE)
     score = models.CharField(max_length=10)
-    datetime = models.DateTimeField(auto_now=True)
+    # datetime = models.DateTimeField(auto_now=True)
+    timestamp = models.BigIntegerField()
