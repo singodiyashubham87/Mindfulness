@@ -1,7 +1,7 @@
 import resultArt from "../assets/images/resultArt.png";
 import { useState, useEffect } from "react";
 import logo from "../assets/images/logo.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import Modal from "../components/Modal";
 import axios from "axios";
@@ -10,45 +10,17 @@ import LoginButton from "../components/Buttons/LoginButton";
 import LogoutButton from "../components/Buttons/LogoutButton";
 
 function ResultPage() {
-  // Get the current location
-  const location = useLocation();
   // Extract the assessment score from the location state
-  const assessmentScore = location.state?.assessmentScore.score;
+  const assessmentScore = localStorage.getItem("score");
 
-  
   // States to manage various aspects of the result
   const [loader, setLoader] = useState(false);
   const [alertError, setAlertError] = useState("Tracking Result Saved!"); //alert message in modal component
   const [showModal, setshowModal] = useState(false); //toggle popup modal
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [status, setStatus] = useState("Not Working!");
   const [testResult, setTestResult] = useState("Kam hi nahi kar raha!");
   const [recommendation, setRecommendation] = useState("Kuch mat kar bhai");
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-
-  // Show & Hide Model
-  const openModal = () => setshowModal(true);
-  const closeModal = () => setshowModal(false);
-
-  // Show & Hide Loader
-  const showLoader = () => setLoader(true);
-  const hideLoader = () => setLoader(false);
-
-  // Handle click on Save Progress Button
-  const handleSaveProgress = async () => {
-    if (!isAuthenticated) {
-      setAlertError("Login to save result.");
-      openModal();
-    } else {
-      showLoader();
-      const data = { user: "examplee@gmail.com", score: 33 };
-      const res = await axios.post(
-        "http://127.0.0.1:8000/api/saveresult/",
-        data
-      );
-      hideLoader();
-      openModal();
-    }
-  };
 
   // Use useEffect to modify status based on assessmentScore changes
   useEffect(() => {
@@ -68,6 +40,31 @@ function ResultPage() {
     }
   }, []); // Empty dependency array to run the effect only once
 
+  // Handle click on Save Progress Button
+  const handleSaveProgress = async () => {
+    if (!isAuthenticated) {
+      setAlertError("Login to save result.");
+      openModal();
+    } else {
+      showLoader();
+      const data = { user: "examplee@gmail.com", score: 33 };
+      const res = await axios.post(
+        "http://127.0.0.1:8000/api/saveresult/",
+        data
+      );
+      hideLoader();
+      openModal();
+    }
+  };
+
+  // Show & Hide Model
+  const openModal = () => setshowModal(true);
+  const closeModal = () => setshowModal(false);
+
+  // Show & Hide Loader
+  const showLoader = () => setLoader(true);
+  const hideLoader = () => setLoader(false);
+
   // Handle user login
   const handleLogin = () => {
     loginWithRedirect({
@@ -77,7 +74,6 @@ function ResultPage() {
 
   // Handle user logout
   const handleLogout = () => {
-    // localStorage.clear(); // Clear local storage before logging out
     logout({ logoutParams: { returnTo: window.location.href } });
   };
 
@@ -97,9 +93,9 @@ function ResultPage() {
             />
           </Link>
           {isAuthenticated ? (
-            <LogoutButton handleLogout={handleLogout}/>
+            <LogoutButton handleLogout={handleLogout} />
           ) : (
-            <LoginButton handleLogin={handleLogin}/>
+            <LoginButton handleLogin={handleLogin} />
           )}
         </div>
 

@@ -103,11 +103,13 @@ function AssessmentPage() {
           data: formData,
         })
         .then((res) => {
-          score = res.data;
+          score = res.data.score;
         });
 
       // Hide loader after score is fetched
       hideLoader();
+      // Store the score in the local storage
+      localStorage.setItem("score", score);
       // Navigate to result page after score is fetched
       navigateTo("/result", { state: { assessmentScore: score } });
     }
