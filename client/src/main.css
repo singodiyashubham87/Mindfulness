@@ -22,3 +22,24 @@ input[type="radio"]:hover+.optionText{
     background-color: #000;
     color: #D9D9D9;
 }
+
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #e6b58f;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #fa8a34;
+    border-radius: 0.5rem;
+    opacity: 80%;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #fc6d00;
+    cursor: pointer;
+    opacity: 100%;
+  }

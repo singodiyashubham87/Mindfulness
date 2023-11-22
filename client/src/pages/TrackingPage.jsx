@@ -69,7 +69,7 @@ function TrackingPage() {
 
   return (
     <>
-      <div className="trackingPageContainer flex flex-col justify-center items-center w-[100vw] h-[100vh] bg-[#f7d681] relative font-primary">
+      <div className="trackingPageContainer flex flex-col justify-center items-center w-[100%] min-h-[100vh] bg-[#f7d681] relative font-primary overflow-y-auto overflow-x-hidden overflow-hidden">
         <div className="w-[90%] flex justify-between items-center absolute top-[1rem]">
           <Link to={"/"}>
             <img
@@ -86,7 +86,7 @@ function TrackingPage() {
           </button>
         </div>
 
-        <div className="w-[100vw] overflow-hidden h-[70%] absolute bottom-[0]">
+        <div className="w-full overflow-hidden h-[70%] absolute bottom-[0]">
           <picture>
             <source media="(min-width: 768px)" srcSet={mediumTrackingPageBg} />
             <img
@@ -97,7 +97,7 @@ function TrackingPage() {
           </picture>
         </div>
 
-        <div className="content w-[90%] max-h-[70%] flex flex-col justify-center items-center gap-4 z-[1] relative sm:w-[80%] md:gap-8 border-2 border-green-800">
+        <div className="content w-[90%] min-h-fit flex flex-col justify-center items-center gap-4 z-[1] relative sm:w-[80%] md:gap-8 flex-grow-1 my-[10rem] overflow-hidden">
           <div className="userInfo flex gap-4 justify-start items-center">
             <div className="userAvatar w-[5rem] h-[5rem] border-2 border-black rounded-[50%] overflow-hidden">
               <img
@@ -110,13 +110,13 @@ function TrackingPage() {
               {user.name}
             </h3>
           </div>
-          <div className="assessmentHistory flex flex-col justify-center items-center w-full max-h-[50vh] overflow-y-auto border-2 border-blue-800">
+          <div className="assessmentHistory flex flex-col justify-center items-center w-full min-h-fit  flex-grow-1">
             {!showGetDataButton? (
               <>
                 <h3 className="assessmentHistory text-[1.5rem] mb-[0.5rem] md:text-[2rem]">
                   Assessment History
                 </h3>
-                <div className="divPool flex flex-col justify-center items-center gap-2 w-full h-[90%] sm:w-[90%] sm:px-[1rem] md:w-[80%] mmd:w-[75%] lg:w-[65%] xl:w-[55%] 2xl:w-[45%] overflow-y-auto border-2 border-red-800">
+                <div className="divPool flex flex-col justify-center items-center gap-2 w-full h-[90%] sm:w-[90%] sm:px-[1rem] md:w-[80%] mmd:w-[75%] lg:w-[65%] xl:w-[55%] 2xl:w-[45%] relative flex-grow-1">
                   {trackingData.length === 0 ? (
                     <div className="bg-[#FF8020] text-black text-[1.5rem] sm:text-[2rem] px-[2rem] sm:px-[4rem] border-2 border-black rounded-[0.625rem]">
                       No previous record found.
