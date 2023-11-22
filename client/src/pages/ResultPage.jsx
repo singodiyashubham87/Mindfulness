@@ -6,6 +6,8 @@ import Loader from "../components/Loader";
 import Modal from "../components/Modal";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "../components/Buttons/LoginButton";
+import LogoutButton from "../components/Buttons/LogoutButton";
 
 function ResultPage() {
   // Get the current location
@@ -13,15 +15,15 @@ function ResultPage() {
   // Extract the assessment score from the location state
   const assessmentScore = location.state?.assessmentScore.score;
 
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-
+  
   // States to manage various aspects of the result
-  const [status, setStatus] = useState("Not Working!");
-  const [testResult, setTestResult] = useState("Kam hi nahi kar raha!");
-  const [recommendation, setRecommendation] = useState("Kuch mat kar bhai");
   const [loader, setLoader] = useState(false);
   const [alertError, setAlertError] = useState("Tracking Result Saved!"); //alert message in modal component
   const [showModal, setshowModal] = useState(false); //toggle popup modal
+  const [status, setStatus] = useState("Not Working!");
+  const [testResult, setTestResult] = useState("Kam hi nahi kar raha!");
+  const [recommendation, setRecommendation] = useState("Kuch mat kar bhai");
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   // Show & Hide Model
   const openModal = () => setshowModal(true);
@@ -95,24 +97,14 @@ function ResultPage() {
             />
           </Link>
           {isAuthenticated ? (
-            <button
-              className="bg-[#FF8020] text-black text-[1.3rem] sm:text-[1.5rem] px-[1rem] sm:px-[2rem] hover:bg-white hover:text-black border-2 border-black rounded-[0.625rem]"
-              onClick={handleLogout}
-            >
-              Log Out
-            </button>
+            <LogoutButton handleLogout={handleLogout}/>
           ) : (
-            <button
-              className="bg-[#FF8020] text-black text-[1.2rem] vsm:text-[1.5rem] px-[1rem] vsm:px-[1.5rem] sm:px-[3rem] hover:bg-white hover:text-black border-2 border-black rounded-[0.625rem] z-[1]"
-              onClick={handleLogin}
-            >
-              Log In
-            </button>
+            <LoginButton handleLogin={handleLogin}/>
           )}
         </div>
 
         <div className="resultText w-[85%] h-[55%] md:h-[60%] md:w-[75%] flex flex-col justify-evenly items-center">
-          <h1 className="vvsm:text-[3rem] vsm:text-[3.5rem] gsm:text-[4rem] md:text-[5rem] leading-[1.2]">
+          <h1 className="vvsm:text-[2.5rem] vsm:text-[3.5rem] gsm:text-[4rem] md:text-[5rem] leading-[1.2]">
             {status}
           </h1>
           <div className="testResult bg-[#FF7F1E] rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] text-center">
