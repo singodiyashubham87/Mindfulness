@@ -25,9 +25,13 @@ function TrackingPage() {
 
   // Get Track Data from Backend
   const getData = async (reqBody) => {
-    const res = await axios.get("http://127.0.0.1:8000/api/user/", {
+    try{
+      const res = await axios.get("http://127.0.0.1:8000/api/user/", {
       params: reqBody,
     });
+    }catch(error){
+      console.error(`Error in getting tracking data: ${error}`)
+    }
     setTrackingData(res.data);
   };
 

@@ -48,10 +48,14 @@ function ResultPage() {
     } else {
       showLoader();
       const data = { user: "examplee@gmail.com", score: 33 };
-      const res = await axios.post(
-        "http://127.0.0.1:8000/api/saveresult/",
-        data
-      );
+      try{
+        const res = await axios.post(
+          "http://127.0.0.1:8000/api/saveresult/",
+          data
+        );
+      }catch(error){
+        console.error(`Error in saving result: ${error}`)
+      }
       hideLoader();
       openModal();
     }

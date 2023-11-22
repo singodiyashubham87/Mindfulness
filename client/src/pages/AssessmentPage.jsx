@@ -98,13 +98,17 @@ function AssessmentPage() {
 
       // Posting form data to get assessment Score
       let score = -1;
-      await axios
+      try{
+        await axios
         .post("http://localhost:8000/api/user/", {
           data: formData,
         })
         .then((res) => {
           score = res.data.score;
         });
+      }catch(error){
+        console.error(`Error in posting formData: ${error}`)
+      }
 
       // Hide loader after score is fetched
       hideLoader();
