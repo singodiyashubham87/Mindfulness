@@ -10,8 +10,9 @@ import LoginButton from "../components/Buttons/LoginButton";
 import LogoutButton from "../components/Buttons/LogoutButton";
 
 function ResultPage() {
-  // Extract the assessment score from the location state
+  // Get the assessment score and timestamp from the local Storage
   const assessmentScore = localStorage.getItem("score");
+  const timestamp = localStorage.getItem("timestamp");
 
   // States to manage various aspects of the result
   const [loader, setLoader] = useState(false);
@@ -40,6 +41,25 @@ function ResultPage() {
     }
   }, []); // Empty dependency array to run the effect only once
 
+  // Validate if the result is already saved in the database or not using the timestamp of assessment submission
+  const validateTimestamp = async () => {
+    const reqBody = { email: "examplee@gmail.com" };
+    try {
+      const res = await axios.get("http://127.0.0.1:8000/api/user/", {
+        params: reqBody,
+      });
+      const trackingDataArray = res.data;
+      for (let i = 0; i < trackingDataArray.length; i++) {
+        if (trackingDataArray[i].timestamp == timestamp){
+          return true;
+        }
+      }
+      return false;
+    } catch (error) {
+      console.error(`Error in getting tracking data: ${error}`);
+    }
+  };
+
   // Handle click on Save Progress Button
   const handleSaveProgress = async () => {
     if (!isAuthenticated) {
@@ -47,17 +67,23 @@ function ResultPage() {
       openModal();
     } else {
       showLoader();
-      const data = { user: "examplee@gmail.com", score: 33 };
-      try{
-        const res = await axios.post(
-          "http://127.0.0.1:8000/api/saveresult/",
-          data
-        );
-      }catch(error){
-        console.error(`Error in saving result: ${error}`)
+      const isExist = await validateTimestamp();
+      if (isExist) {
+        setAlertError("Result already saved!");
+        openModal();
+      } else {
+        const data = { user: "examplee@gmail.com", score: 33, timestamp: timestamp };
+        try {
+          const res = await axios.post(
+            "http://127.0.0.1:8000/api/saveresult/",
+            data
+          );
+        } catch (error) {
+          console.error(`Error in saving result: ${error}`);
+        }
+        openModal();
       }
       hideLoader();
-      openModal();
     }
   };
 

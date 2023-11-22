@@ -29,10 +29,10 @@ function TrackingPage() {
       const res = await axios.get("http://127.0.0.1:8000/api/user/", {
       params: reqBody,
     });
+    setTrackingData(res.data);
     }catch(error){
       console.error(`Error in getting tracking data: ${error}`)
     }
-    setTrackingData(res.data);
   };
 
   // Function to handle click on Get Tracking Data button
@@ -124,7 +124,7 @@ function TrackingPage() {
                   ) : (
                     // Render TrackDiv components with the received tracking data
                     trackingData.map((ele, i) => {
-                      let timestamp = ele.datetime;
+                      let timestamp = ele.timestamp;
                       let assessmentDate = new Date(timestamp);
                       let status = ele.score > 40 ? "Good" : "Moderate";
                       return (
