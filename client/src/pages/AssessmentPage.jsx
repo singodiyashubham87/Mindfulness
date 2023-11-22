@@ -5,7 +5,7 @@ import assessmentPageBg from "../assets/images/assessmentPageBg.png";
 import kidThinking from "../assets/images/kidThinking.png";
 import axios from "axios";
 import Question from "../components/Question";
-import Buttons from "../components/Buttons";
+import RadioButtons from "../components/Buttons/RadioButtons";
 import Loader from "../components/Loader";
 import Modal from "../components/Modal";
 
@@ -155,7 +155,7 @@ function AssessmentPage() {
               <div className="questions rounded-[0.625rem] overflow-y-auto h-[90%] text-left">
                 <div className="q0">
                   <Question question={"Q. What is your current age?"} />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={0}
                     questionNum="q0"
                     buttonValue1="Below 20"
@@ -170,7 +170,7 @@ function AssessmentPage() {
                   <Question
                     question={"Q. What course are you currently enrolled in?"}
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={1}
                     questionNum="q1"
                     buttonValue1="Medical"
@@ -183,7 +183,7 @@ function AssessmentPage() {
 
                 <div className="q2">
                   <Question question={"Q. How do you identify your gender?"} />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={2}
                     questionNum="q2"
                     buttonValue1="Male"
@@ -200,7 +200,7 @@ function AssessmentPage() {
                       "Q. What is your current Cumulative Grade Point Average (CGPA)?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={3}
                     questionNum="q3"
                     buttonValue1="0.0-3.3"
@@ -217,7 +217,7 @@ function AssessmentPage() {
                       "Q. On a scale from 0 to 5, how would you rate your stress level?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={4}
                     questionNum="q4"
                     buttonValue1="0"
@@ -234,7 +234,7 @@ function AssessmentPage() {
                       "Q. On a scale from 0 to 5, how anxious do you feel?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={5}
                     questionNum="q5"
                     buttonValue1="0"
@@ -249,7 +249,7 @@ function AssessmentPage() {
                   <Question
                     question={"Q. How would you rate your sleep quality?"}
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={6}
                     questionNum="q6"
                     buttonValue1="Good"
@@ -266,7 +266,7 @@ function AssessmentPage() {
                       "Q. How often do you engage in physical activity per week?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={7}
                     questionNum="q7"
                     buttonValue1="Low"
@@ -283,7 +283,7 @@ function AssessmentPage() {
                       "Q. How would you describe the overall quality of your diet?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={8}
                     questionNum="q8"
                     buttonValue1="Good"
@@ -300,7 +300,7 @@ function AssessmentPage() {
                       "Q. How would you describe the you current social_support?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={9}
                     questionNum="q9"
                     buttonValue1="Low"
@@ -315,7 +315,7 @@ function AssessmentPage() {
                   <Question
                     question={"Q. What is your current relationship status?"}
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={10}
                     questionNum="q10"
                     buttonValue1="Single"
@@ -332,7 +332,7 @@ function AssessmentPage() {
                       "Q. Have you ever engaged in substance use (e.g., alcohol, drugs)?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={11}
                     questionNum="q11"
                     buttonValue1="Never"
@@ -349,7 +349,7 @@ function AssessmentPage() {
                       "Q. How often have you used counseling services for mental health support?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={12}
                     questionNum="q12"
                     buttonValue1="Never"
@@ -366,7 +366,7 @@ function AssessmentPage() {
                       "Q. Is there a history of mental health issues in your family?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={13}
                     questionNum="q13"
                     buttonValue1="No"
@@ -383,7 +383,7 @@ function AssessmentPage() {
                       "Q. Do you have any chronic illnesses or health conditions?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={14}
                     questionNum="q14"
                     buttonValue1="No"
@@ -400,7 +400,7 @@ function AssessmentPage() {
                       "Q. On a scale from 0 to 5, how would you rate your financial stress?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={15}
                     questionNum="q15"
                     buttonValue1="0"
@@ -417,7 +417,7 @@ function AssessmentPage() {
                       "Q. How much are you involved in any extracurricular activities?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={16}
                     questionNum="q16"
                     buttonValue1="Low"
@@ -434,7 +434,7 @@ function AssessmentPage() {
                       "Q. How many credits are you currently enrolled in this semester?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={17}
                     questionNum="q17"
                     buttonValue1="15-20"
@@ -451,7 +451,7 @@ function AssessmentPage() {
                       "Q. What type of residence do you currently live in?"
                     }
                   />
-                  <Buttons
+                  <RadioButtons
                     questionIndex={18}
                     questionNum="q18"
                     buttonValue1="On-Campus"
@@ -464,7 +464,7 @@ function AssessmentPage() {
               </div>
               <input
                 type="submit"
-                className="text-[1rem] vsm:text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[0.7rem] buttonsm:px-[1rem] msm:px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] mt-[0.5rem]"
+                className="text-[1rem] vsm:text-[1.2rem] lg:text-[1.4rem] 2xl:text-[1.5rem] bg-[#D9D9D9] px-[0.7rem] RadioButtonsm:px-[1rem] msm:px-[1.5rem] pt-[0.3rem] rounded-[0.8rem] border-2 border-black cursor-pointer hover:bg-black hover:text-[#D9D9D9] mt-[0.5rem]"
                 value={"Submit"}
                 onClick={handleSubmit}
               />

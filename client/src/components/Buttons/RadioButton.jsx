@@ -1,4 +1,4 @@
-const Button = (props) => {
+const RadioButton = (props) => {
     const { questionNum, questionIndex, buttonValue, option, handleSelectOption } = props;
 
   return (
@@ -12,4 +12,4 @@ const Button = (props) => {
   );
 };
 
-export default Button;
+export default RadioButton;

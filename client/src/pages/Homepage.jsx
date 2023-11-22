@@ -3,6 +3,7 @@ import logo from "../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import AuthLoader from "../components/AuthLoader";
+import LoginButton from "../components/Buttons/LoginButton";
 
 function Homepage() {
   const { loginWithRedirect, isLoading, isAuthenticated ,user} = useAuth0();
@@ -46,12 +47,7 @@ function Homepage() {
               </div>
             </Link>
           ) : (
-            <button
-              className="bg-[#FF8020] text-black text-[1.2rem] vsm:text-[1.5rem] sm:text-[1.7rem] px-[1rem] vsm:px-[1.5rem] sm:px-[3rem] hover:bg-white hover:text-black border-2 border-black rounded-[0.625rem] z-[1]"
-              onClick={handleLogin}
-            >
-              Log In
-            </button>
+            <LoginButton handleLogin={handleLogin}/>
           )}
         </nav>
         <div className="landingPageText m-auto flex flex-col items-center justify-center w-[100%] absolute top-[50%] left-[50%] translate-x-[-50%]	translate-y-[-50%]">
