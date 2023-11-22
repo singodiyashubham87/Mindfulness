@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import TrackDiv from "../components/TrackDiv";
+import LogoutButton from "../components/Buttons/LogoutButton";
 
 function TrackingPage() {
   const { logout, isLoading, user } = useAuth0();
@@ -24,9 +25,13 @@ function TrackingPage() {
 
   // Get Track Data from Backend
   const getData = async (reqBody) => {
-    const res = await axios.get("http://127.0.0.1:8000/api/user/", {
+    try{
+      const res = await axios.get("http://127.0.0.1:8000/api/user/", {
       params: reqBody,
     });
+    }catch(error){
+      console.error(`Error in getting tracking data: ${error}`)
+    }
     setTrackingData(res.data);
   };
 
@@ -78,12 +83,7 @@ function TrackingPage() {
               className=" cursor-pointer vvsm:w-[5rem] msm:w-[6rem] lg:w-[8rem]"
             />
           </Link>
-          <button
-            className="bg-[#FF8020] text-black text-[1.3rem] sm:text-[1.5rem] px-[1rem] sm:px-[2rem] hover:bg-white hover:text-black border-2 border-black rounded-[0.625rem]"
-            onClick={handleLogout}
-          >
-            Log Out
-          </button>
+        <LogoutButton handleLogout={handleLogout}/>
         </div>
 
         <div className="w-full overflow-hidden h-[70%] absolute bottom-[0]">
