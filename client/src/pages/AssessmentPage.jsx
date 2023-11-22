@@ -112,8 +112,10 @@ function AssessmentPage() {
 
       // Hide loader after score is fetched
       hideLoader();
-      // Store the score in the local storage
+      // Store the score and timestamp in the local storage
+      const timestamp = new Date().getTime();
       localStorage.setItem("score", score);
+      localStorage.setItem("timestamp",timestamp);
       // Navigate to result page after score is fetched
       navigateTo("/result", { state: { assessmentScore: score } });
     }
