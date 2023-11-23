@@ -3,7 +3,7 @@ import openai from "./getOpenAi";
 let system = `You are a psychology expert from india.`; 
 
 let user = `My username is : Master Mickey
-My assessment score is : 3
+My assessment score is : 2
 
 Now consider yourself a psychology expert from india.
 I have given a pyschology assessment test which was having 20 questions and after submitting the assessment I got an assessment score.
@@ -19,10 +19,13 @@ You have to provide me recommendation to improve my mental health level accordin
 Give different recommendations according to different mental health levels
 Don't give Helpline Number if score is greater than 3
 
+Also provide test result status according to the assessment score, the test result status will be like this: Little or no Stress, Moderate amount of Stress, High stress level, etc.
+
 Return output in this manner with square brackets too -
 [
   [Hey <user name>!]
   [Your assessment score is : <score>]
+  [Result Status : <status>]
   [Recommendation 1: <recommendation>]
   [Recommendation 2: <recommendation>]
   [Recommendation 3: <recommendation>]

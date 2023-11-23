@@ -8,7 +8,9 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../components/Buttons/LoginButton";
 import LogoutButton from "../components/Buttons/LogoutButton";
-import {BASE_URL} from "../utils/baseURL";
+import { BASE_URL } from "../utils/baseURL";
+import getRecommendations from "../utils/getRecommendations";
+import AuthLoader from "../components/AuthLoader";
 
 function ResultPage() {
   // Get the assessment score and timestamp from the local Storage
@@ -17,6 +19,7 @@ function ResultPage() {
 
   // States to manage various aspects of the result
   const [loader, setLoader] = useState(false);
+  const [authLoader, setAuthLoader] = useState(false);
   const [alertError, setAlertError] = useState("Tracking Result Saved!"); //alert message in modal component
   const [showModal, setshowModal] = useState(false); //toggle popup modal
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -26,6 +29,21 @@ function ResultPage() {
 
   // Use useEffect to modify status based on assessmentScore changes
   useEffect(() => {
+    // Get recommendations from ChatGPT using IIFE
+    (async () => {
+      showAuthLoader();
+      try {
+        const recommendations = await getRecommendations();
+        // console.log(recommendations);
+      } catch (error) {
+        console.error(
+          `Error in getting recommendations from ChatGPT: ${error}`
+        );
+      } finally {
+        hideAuthLoader();
+      }
+    })();
+
     // Update variable values based on the assessment score
     if (assessmentScore < 1.7) {
       setStatus("Yeeah!");
@@ -40,7 +58,7 @@ function ResultPage() {
       setTestResult("High stress level!");
       setRecommendation("Consult a Psychiatrist!");
     }
-  }, []); // Empty dependency array to run the effect only once
+  }, [assessmentScore]); // assessmentScore in dependency array to run the effect when value changes
 
   // Validate if the result is already saved in the database or not using the timestamp of assessment submission
   const validateTimestamp = async () => {
@@ -51,7 +69,7 @@ function ResultPage() {
       });
       const trackingDataArray = res.data;
       for (let i = 0; i < trackingDataArray.length; i++) {
-        if (trackingDataArray[i].timestamp == timestamp){
+        if (trackingDataArray[i].timestamp == timestamp) {
           return true;
         }
       }
@@ -73,12 +91,13 @@ function ResultPage() {
         setAlertError("Result already saved!");
         openModal();
       } else {
-        const data = { user: "examplee@gmail.com", score: 33, timestamp: timestamp };
+        const data = {
+          user: "examplee@gmail.com",
+          score: 33,
+          timestamp: timestamp,
+        };
         try {
-          const res = await axios.post(
-            `${BASE_URL}/api/saveresult/`,
-            data
-          );
+          const res = await axios.post(`${BASE_URL}/api/saveresult/`, data);
         } catch (error) {
           console.error(`Error in saving result: ${error}`);
         }
@@ -95,6 +114,10 @@ function ResultPage() {
   // Show & Hide Loader
   const showLoader = () => setLoader(true);
   const hideLoader = () => setLoader(false);
+
+  // Show & Hide Loader
+  const showAuthLoader = () => setAuthLoader(true);
+  const hideAuthLoader = () => setAuthLoader(false);
 
   // Handle user login
   const handleLogin = () => {
@@ -114,6 +137,9 @@ function ResultPage() {
         <Modal alert="Alert!" alertError={alertError} closeModal={closeModal} />
       )}
       {loader && <Loader />}
+      {authLoader && (
+        <AuthLoader loadingText="Getting personalised Recommendations..." />
+      )}
       <div className="resultContainer bg-[#FFCE00] w-[100%] h-[100vh] relative font-primary flex justify-center items-center relative">
         <div className="w-[95dvw] flex items-center px-[0.1rem] sm:px-[2rem] mt-[1rem] justify-between md:w-[99dvw] lg:px-[3rem] 2xl:px-[4rem] lg:mt-[1rem] absolute top-[1rem]">
           <Link to={"/"}>
