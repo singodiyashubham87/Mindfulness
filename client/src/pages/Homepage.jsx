@@ -4,9 +4,25 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import AuthLoader from "../components/AuthLoader";
 import LoginButton from "../components/Buttons/LoginButton";
+// import getRecommendations from "../utils/getRecommendations";
+import { useState } from "react";
+import Loader from "../components/Loader";
 
 function Homepage() {
-  const { loginWithRedirect, isLoading, isAuthenticated ,user} = useAuth0();
+  const [loader, setLoader] = useState(false); //loader variable
+
+  // Show & Hide Loader
+  const showLoader = () => setLoader(true);
+  const hideLoader = () => setLoader(false);
+
+  // useState(async () => {
+  //   showLoader();
+  //   const recommendations = await getRecommendations();
+  //   console.log(recommendations);
+  //   hideLoader();
+  // }, []);
+
+  const { loginWithRedirect, isLoading, isAuthenticated, user } = useAuth0();
 
   // Handle user login
   const handleLogin = () => {
@@ -20,6 +36,7 @@ function Homepage() {
 
   return (
     <>
+      {loader && <Loader />}
       <div className="trackingContainer bg-[#ffd801] w-[100vw] h-[100vh] font-primary relative border-2 border-black">
         <div className="w-full overflow-hidden h-[70%] absolute bottom-[0]">
           <Link to={"/"}>
@@ -47,7 +64,7 @@ function Homepage() {
               </div>
             </Link>
           ) : (
-            <LoginButton handleLogin={handleLogin}/>
+            <LoginButton handleLogin={handleLogin} />
           )}
         </nav>
         <div className="landingPageText m-auto flex flex-col items-center justify-center w-[100%] absolute top-[50%] left-[50%] translate-x-[-50%]	translate-y-[-50%]">

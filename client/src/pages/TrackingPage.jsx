@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import TrackDiv from "../components/TrackDiv";
 import LogoutButton from "../components/Buttons/LogoutButton";
+import {BASE_URL} from "../utils/baseURL";
+
 
 function TrackingPage() {
   const { logout, isLoading, user } = useAuth0();
@@ -26,7 +28,7 @@ function TrackingPage() {
   // Get Track Data from Backend
   const getData = async (reqBody) => {
     try{
-      const res = await axios.get("http://127.0.0.1:8000/api/user/", {
+      const res = await axios.get(`${BASE_URL}/api/user/`, {
       params: reqBody,
     });
     setTrackingData(res.data);

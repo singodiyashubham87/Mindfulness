@@ -8,6 +8,7 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../components/Buttons/LoginButton";
 import LogoutButton from "../components/Buttons/LogoutButton";
+import {BASE_URL} from "../utils/baseURL";
 
 function ResultPage() {
   // Get the assessment score and timestamp from the local Storage
@@ -45,7 +46,7 @@ function ResultPage() {
   const validateTimestamp = async () => {
     const reqBody = { email: "examplee@gmail.com" };
     try {
-      const res = await axios.get("http://127.0.0.1:8000/api/user/", {
+      const res = await axios.get(`${BASE_URL}/api/user/`, {
         params: reqBody,
       });
       const trackingDataArray = res.data;
@@ -75,7 +76,7 @@ function ResultPage() {
         const data = { user: "examplee@gmail.com", score: 33, timestamp: timestamp };
         try {
           const res = await axios.post(
-            "http://127.0.0.1:8000/api/saveresult/",
+            `${BASE_URL}/api/saveresult/`,
             data
           );
         } catch (error) {
