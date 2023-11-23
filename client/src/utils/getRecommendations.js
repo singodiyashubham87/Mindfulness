@@ -21,17 +21,17 @@ Don't give Helpline Number if score is greater than 3
 
 Also provide test result status according to the assessment score, the test result status will be like this: Little or no Stress, Moderate amount of Stress, High stress level, etc.
 
-Return output in this manner with square brackets too -
-[
-  [Hey <user name>!]
-  [Your assessment score is : <score>]
-  [Result Status : <status>]
-  [Recommendation 1: <recommendation>]
-  [Recommendation 2: <recommendation>]
-  [Recommendation 3: <recommendation>]
-  [Helpline Number: <mental health helpline number>]
-  [Book to read: <mental health book>]
-]
+Return output in this manner with square brackets too :-
+{
+  {"Hey" : "<user name>!"}
+  {"Your assessment score is" : "<score>"}
+  {"Result Status" : "<status>"}
+  {"Recommendation 1" : "<recommendation>"}
+  {"Recommendation 2" : "<recommendation>"}
+  {"Recommendation 3" : "<recommendation>"}
+  {"Helpline Number" : "<mental health helpline number>"}
+  {"Book to read" : "<mental health book>"}
+}
 `
 
 const getRecommendations = async ()=>{

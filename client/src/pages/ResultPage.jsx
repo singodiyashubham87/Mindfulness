@@ -26,6 +26,10 @@ function ResultPage() {
   const [status, setStatus] = useState("Not Working!");
   const [testResult, setTestResult] = useState("Kam hi nahi kar raha!");
   const [recommendation, setRecommendation] = useState("Kuch mat kar bhai");
+  const [gptRecommendationsArray, setGptRecommendationsArray] = useState([]);
+  const [gptTestResult, setGptTestResult] = useState("");
+  const [gptRecommendedBook, setGptRecommendedBook] = useState("");
+  const [helplineNumber, setHelplineNumber] = useState("1800-599-0019");
 
   // Use useEffect to modify status based on assessmentScore changes
   useEffect(() => {
@@ -34,7 +38,12 @@ function ResultPage() {
       showAuthLoader();
       try {
         const recommendations = await getRecommendations();
-        // console.log(recommendations);
+        const recommendationsObj = JSON.parse(recommendations);
+        const valuesArray = Object.values(recommendationsObj);
+        setGptTestResult(valuesArray[2]);
+        setGptRecommendationsArray(valuesArray.slice(3, 6));
+        setGptRecommendedBook(valuesArray[7]);
+        valuesArray[6] && setHelplineNumber(valuesArray[6]);
       } catch (error) {
         console.error(
           `Error in getting recommendations from ChatGPT: ${error}`
@@ -156,23 +165,44 @@ function ResultPage() {
           )}
         </div>
 
-        <div className="resultText w-[85%] h-[55%] md:h-[60%] md:w-[75%] flex flex-col justify-evenly items-center">
+        <div className="resultText w-[85%] h-[55%] md:h-[60%] md:w-[75%] flex flex-col gap-[1rem] justify-evenly items-center">
           <h1 className="vvsm:text-[2.5rem] vsm:text-[3.5rem] gsm:text-[4rem] md:text-[5rem] leading-[1.2]">
             {status}
           </h1>
-          <div className="testResult bg-[#FF7F1E] rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] text-center">
-            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white">
-              Test Result: <span className="text-black">{testResult}</span>
+          <div className="testResult bg-[#FF7F1E] rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] py-[0.5rem] text-center">
+            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white leading-[2.3rem] flex flex-col">
+              Test Result:{" "}
+              <span className="text-black">
+                {gptTestResult ? gptTestResult : testResult}
+              </span>
             </h2>
           </div>
-          <div className="recommendation bg-[#E03A3A]  rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] text-center">
-            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white">
-              Recommendation:{" "}
-              <span className="text-[#FAC05E]">{recommendation}</span>
+          <div className="recommendation bg-[#E03A3A]  rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] py-[0.5rem] text-left">
+            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white flex flex-col">
+              <span className="text-center">Recommendations:</span>
+              {gptRecommendationsArray.length ? (
+                gptRecommendationsArray.map((recommendation, i) => {
+                  return (
+                    <span className="text-[#FAC05E] flex gap-x-2" key={i}>
+                      <span>&#128307;</span> {recommendation}.
+                    </span>
+                  );
+                })
+              ) : (
+                <span className="text-[#FAC05E]">&#128307; {recommendation}</span>
+              )}
             </h2>
           </div>
+
+          <div className="testResult bg-[#2596be] rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] py-[0.5rem] text-center">
+            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white leading-[2.3rem] flex flex-col">
+              Helpline Number:
+              <span className="text-black">{helplineNumber}</span>
+            </h2>
+          </div>
+
           <button
-            className="transition ease-in-out vvsm:text-[1.3rem] vsm:text-[1.5rem] lg:text-[1.5rem] gsm:text-[1.8rem]  md:text-[2rem] lg:text-[2.5rem] bg-[#D9D9D9] py-[0.3rem] px-[2rem] rounded-[2rem] mt-[0.8rem] hover:bg-black hover:text-[#D9D9D9]"
+            className="transition ease-in-out vvsm:text-[1.3rem] vsm:text-[1.5rem] lg:text-[1.5rem] gsm:text-[1.8rem]  md:text-[2rem] lg:text-[2.5rem] bg-[#D9D9D9] py-[0.3rem] px-[2rem] rounded-[2rem] hover:bg-black hover:text-[#D9D9D9]"
             onClick={handleSaveProgress}
           >
             Save Progress
