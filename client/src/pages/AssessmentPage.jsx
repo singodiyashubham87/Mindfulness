@@ -8,6 +8,7 @@ import Question from "../components/Question";
 import RadioButtons from "../components/Buttons/RadioButtons";
 import Loader from "../components/Loader";
 import Modal from "../components/Modal";
+import {BASE_URL} from "../utils/baseURL";
 
 function AssessmentPage() {
   const navigateTo = useNavigate(); // Navigation control
@@ -100,7 +101,7 @@ function AssessmentPage() {
       let score = -1;
       try{
         await axios
-        .post("http://localhost:8000/api/user/", {
+        .post(`${BASE_URL}/api/user/`, {
           data: formData,
         })
         .then((res) => {
