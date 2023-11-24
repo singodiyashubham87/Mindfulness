@@ -8,7 +8,9 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../components/Buttons/LoginButton";
 import LogoutButton from "../components/Buttons/LogoutButton";
-import {BASE_URL} from "../utils/baseURL";
+import { BASE_URL } from "../utils/baseURL";
+import getRecommendations from "../utils/getRecommendations";
+import AuthLoader from "../components/AuthLoader";
 
 function ResultPage() {
   // Get the assessment score and timestamp from the local Storage
@@ -17,15 +19,40 @@ function ResultPage() {
 
   // States to manage various aspects of the result
   const [loader, setLoader] = useState(false);
+  const [authLoader, setAuthLoader] = useState(false);
   const [alertError, setAlertError] = useState("Tracking Result Saved!"); //alert message in modal component
   const [showModal, setshowModal] = useState(false); //toggle popup modal
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [status, setStatus] = useState("Not Working!");
   const [testResult, setTestResult] = useState("Kam hi nahi kar raha!");
   const [recommendation, setRecommendation] = useState("Kuch mat kar bhai");
+  const [gptRecommendationsArray, setGptRecommendationsArray] = useState([]);
+  const [gptTestResult, setGptTestResult] = useState("");
+  const [gptRecommendedBook, setGptRecommendedBook] = useState("");
+  const [helplineNumber, setHelplineNumber] = useState("1800-599-0019");
 
   // Use useEffect to modify status based on assessmentScore changes
   useEffect(() => {
+    // Get recommendations from ChatGPT using IIFE
+    (async () => {
+      showAuthLoader();
+      try {
+        const recommendations = await getRecommendations();
+        const recommendationsObj = JSON.parse(recommendations);
+        const valuesArray = Object.values(recommendationsObj);
+        setGptTestResult(valuesArray[2]);
+        setGptRecommendationsArray(valuesArray.slice(3, 6));
+        setGptRecommendedBook(valuesArray[7]);
+        valuesArray[6] && setHelplineNumber(valuesArray[6]);
+      } catch (error) {
+        console.error(
+          `Error in getting recommendations from ChatGPT: ${error}`
+        );
+      } finally {
+        hideAuthLoader();
+      }
+    })();
+
     // Update variable values based on the assessment score
     if (assessmentScore < 1.7) {
       setStatus("Yeeah!");
@@ -40,7 +67,7 @@ function ResultPage() {
       setTestResult("High stress level!");
       setRecommendation("Consult a Psychiatrist!");
     }
-  }, []); // Empty dependency array to run the effect only once
+  }, [assessmentScore]); // assessmentScore in dependency array to run the effect when value changes
 
   // Validate if the result is already saved in the database or not using the timestamp of assessment submission
   const validateTimestamp = async () => {
@@ -51,7 +78,7 @@ function ResultPage() {
       });
       const trackingDataArray = res.data;
       for (let i = 0; i < trackingDataArray.length; i++) {
-        if (trackingDataArray[i].timestamp == timestamp){
+        if (trackingDataArray[i].timestamp == timestamp) {
           return true;
         }
       }
@@ -73,12 +100,13 @@ function ResultPage() {
         setAlertError("Result already saved!");
         openModal();
       } else {
-        const data = { user: "examplee@gmail.com", score: 33, timestamp: timestamp };
+        const data = {
+          user: "examplee@gmail.com",
+          score: 33,
+          timestamp: timestamp,
+        };
         try {
-          const res = await axios.post(
-            `${BASE_URL}/api/saveresult/`,
-            data
-          );
+          const res = await axios.post(`${BASE_URL}/api/saveresult/`, data);
         } catch (error) {
           console.error(`Error in saving result: ${error}`);
         }
@@ -95,6 +123,10 @@ function ResultPage() {
   // Show & Hide Loader
   const showLoader = () => setLoader(true);
   const hideLoader = () => setLoader(false);
+
+  // Show & Hide Loader
+  const showAuthLoader = () => setAuthLoader(true);
+  const hideAuthLoader = () => setAuthLoader(false);
 
   // Handle user login
   const handleLogin = () => {
@@ -114,6 +146,9 @@ function ResultPage() {
         <Modal alert="Alert!" alertError={alertError} closeModal={closeModal} />
       )}
       {loader && <Loader />}
+      {authLoader && (
+        <AuthLoader loadingText="Getting personalised Recommendations..." />
+      )}
       <div className="resultContainer bg-[#FFCE00] w-[100%] h-[100vh] relative font-primary flex justify-center items-center relative">
         <div className="w-[95dvw] flex items-center px-[0.1rem] sm:px-[2rem] mt-[1rem] justify-between md:w-[99dvw] lg:px-[3rem] 2xl:px-[4rem] lg:mt-[1rem] absolute top-[1rem]">
           <Link to={"/"}>
@@ -130,23 +165,44 @@ function ResultPage() {
           )}
         </div>
 
-        <div className="resultText w-[85%] h-[55%] md:h-[60%] md:w-[75%] flex flex-col justify-evenly items-center">
+        <div className="resultText w-[85%] h-[55%] md:h-[60%] md:w-[75%] flex flex-col gap-[1rem] justify-evenly items-center">
           <h1 className="vvsm:text-[2.5rem] vsm:text-[3.5rem] gsm:text-[4rem] md:text-[5rem] leading-[1.2]">
             {status}
           </h1>
-          <div className="testResult bg-[#FF7F1E] rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] text-center">
-            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white">
-              Test Result: <span className="text-black">{testResult}</span>
+          <div className="testResult bg-[#FF7F1E] rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] py-[0.5rem] text-center">
+            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white leading-[2.3rem] flex flex-col">
+              Test Result:{" "}
+              <span className="text-black">
+                {gptTestResult ? gptTestResult : testResult}
+              </span>
             </h2>
           </div>
-          <div className="recommendation bg-[#E03A3A]  rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] text-center">
-            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white">
-              Recommendation:{" "}
-              <span className="text-[#FAC05E]">{recommendation}</span>
+          <div className="recommendation bg-[#E03A3A]  rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] py-[0.5rem] text-left">
+            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white flex flex-col">
+              <span className="text-center">Recommendations:</span>
+              {gptRecommendationsArray.length ? (
+                gptRecommendationsArray.map((recommendation, i) => {
+                  return (
+                    <span className="text-[#FAC05E] flex gap-x-2" key={i}>
+                      <span>&#128307;</span> {recommendation}.
+                    </span>
+                  );
+                })
+              ) : (
+                <span className="text-[#FAC05E]">&#128307; {recommendation}</span>
+              )}
             </h2>
           </div>
+
+          <div className="testResult bg-[#2596be] rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] py-[0.5rem] text-center">
+            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white leading-[2.3rem] flex flex-col">
+              Helpline Number:
+              <span className="text-black">{helplineNumber}</span>
+            </h2>
+          </div>
+
           <button
-            className="transition ease-in-out vvsm:text-[1.3rem] vsm:text-[1.5rem] lg:text-[1.5rem] gsm:text-[1.8rem]  md:text-[2rem] lg:text-[2.5rem] bg-[#D9D9D9] py-[0.3rem] px-[2rem] rounded-[2rem] mt-[0.8rem] hover:bg-black hover:text-[#D9D9D9]"
+            className="transition ease-in-out vvsm:text-[1.3rem] vsm:text-[1.5rem] lg:text-[1.5rem] gsm:text-[1.8rem]  md:text-[2rem] lg:text-[2.5rem] bg-[#D9D9D9] py-[0.3rem] px-[2rem] rounded-[2rem] hover:bg-black hover:text-[#D9D9D9]"
             onClick={handleSaveProgress}
           >
             Save Progress
