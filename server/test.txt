@@ -1,9 +1,0 @@
-{
-    "user":{
-        "email":"example5@gmail.com"
-        },
-    "data":{
-        "q1":"good",
-        "q2":"bad"
-        }
-    }
