@@ -4,12 +4,12 @@ import logo from "../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import Modal from "../components/Modal";
-import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../components/Buttons/LoginButton";
 import LogoutButton from "../components/Buttons/LogoutButton";
-import { BASE_URL } from "../utils/baseURL";
 import getRecommendations from "../utils/getRecommendations";
+import validateTimestamp from "../utils/validateTimestamp";
+import saveResultData from "../utils/saveResultData";
 import AuthLoader from "../components/AuthLoader";
 
 function ResultPage() {
@@ -22,7 +22,7 @@ function ResultPage() {
   const [authLoader, setAuthLoader] = useState(false);
   const [alertError, setAlertError] = useState("Tracking Result Saved!"); //alert message in modal component
   const [showModal, setshowModal] = useState(false); //toggle popup modal
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [status, setStatus] = useState("Not Working!");
   const [testResult, setTestResult] = useState("Kam hi nahi kar raha!");
   const [recommendation, setRecommendation] = useState("Kuch mat kar bhai");
@@ -43,6 +43,7 @@ function ResultPage() {
         setGptTestResult(valuesArray[2]);
         setGptRecommendationsArray(valuesArray.slice(3, 6));
         setGptRecommendedBook(valuesArray[7]);
+        //valuesArray[6] will give helpline number
         valuesArray[6] && setHelplineNumber(valuesArray[6]);
       } catch (error) {
         console.error(
@@ -69,25 +70,6 @@ function ResultPage() {
     }
   }, [assessmentScore]); // assessmentScore in dependency array to run the effect when value changes
 
-  // Validate if the result is already saved in the database or not using the timestamp of assessment submission
-  const validateTimestamp = async () => {
-    const reqBody = { email: "examplee@gmail.com" };
-    try {
-      const res = await axios.get(`${BASE_URL}/api/user/`, {
-        params: reqBody,
-      });
-      const trackingDataArray = res.data;
-      for (let i = 0; i < trackingDataArray.length; i++) {
-        if (trackingDataArray[i].timestamp == timestamp) {
-          return true;
-        }
-      }
-      return false;
-    } catch (error) {
-      console.error(`Error in getting tracking data: ${error}`);
-    }
-  };
-
   // Handle click on Save Progress Button
   const handleSaveProgress = async () => {
     if (!isAuthenticated) {
@@ -95,21 +77,13 @@ function ResultPage() {
       openModal();
     } else {
       showLoader();
-      const isExist = await validateTimestamp();
+      const isExist = await validateTimestamp(user.email, timestamp);
       if (isExist) {
         setAlertError("Result already saved!");
         openModal();
       } else {
-        const data = {
-          user: "examplee@gmail.com",
-          score: 33,
-          timestamp: timestamp,
-        };
-        try {
-          const res = await axios.post(`${BASE_URL}/api/saveresult/`, data);
-        } catch (error) {
-          console.error(`Error in saving result: ${error}`);
-        }
+        saveResultData(user.email, timestamp, assessmentScore);
+        //Calling modal with default value i.e. Tracking Result Saved
         openModal();
       }
       hideLoader();
@@ -137,6 +111,8 @@ function ResultPage() {
 
   // Handle user logout
   const handleLogout = () => {
+    //Remove get tracking data variable from localStorage before logging out
+    localStorage.removeItem("getData");
     logout({ logoutParams: { returnTo: window.location.href } });
   };
 
@@ -189,7 +165,9 @@ function ResultPage() {
                   );
                 })
               ) : (
-                <span className="text-[#FAC05E]">&#128307; {recommendation}</span>
+                <span className="text-[#FAC05E]">
+                  &#128307; {recommendation}
+                </span>
               )}
             </h2>
           </div>

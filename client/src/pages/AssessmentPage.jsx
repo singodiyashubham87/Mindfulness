@@ -3,26 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import assessmentPageBg from "../assets/images/assessmentPageBg.png";
 import kidThinking from "../assets/images/kidThinking.png";
-import axios from "axios";
 import Question from "../components/Question";
 import RadioButtons from "../components/Buttons/RadioButtons";
 import Loader from "../components/Loader";
 import Modal from "../components/Modal";
-import {BASE_URL} from "../utils/baseURL";
+import prepareFormDataObj from "../utils/prepareFormDataObj";
+import getUserScore from "../utils/getUserScore";
 
 function AssessmentPage() {
   const navigateTo = useNavigate(); // Navigation control
   const [loader, setLoader] = useState(false); //loader variable
   const [showModal, setshowModal] = useState(false); //toggle popup modal
-
-  // Show & Hide Model
-  const openModal = () => setshowModal(true);
-  const closeModal = () => setshowModal(false);
-
-  // Show & Hide Loader
-  const showLoader = () => setLoader(true);
-  const hideLoader = () => setLoader(false);
-  
+  // State to manage selected options for 19 questions
+  const [selectedOptions, setSelectedOptions] = useState(Array(19).fill(""));
 
   // Function to handle form submission
   async function handleSubmit(e) {
@@ -32,98 +25,30 @@ function AssessmentPage() {
     const form = document.getElementById("myForm");
 
     // validating if user answered all questions
-    if (!form.checkValidity()){
+    if (!form.checkValidity()) {
       openModal();
     } else {
       showLoader(); // show loader until score is calculated
 
-      let formData = {}; //json object to store form answers as body data
-      for (let i = 0; i < 19; i++) {
-        //Handling exceptional cases where answers are in range instead of fixed value
-        switch (i) {
-          case 4:
-          case 5:
-          case 15:
-            formData[`q${i}`] = Number(selectedOptions[i]);
-            break;
-          case 0:
-            selectedOptions[i] === "Below 20"
-              ? (formData[`q${i}`] = 18)
-              : selectedOptions[i] === "Above 30"
-              ? (formData[`q${i}`] = 35)
-              : (formData[`q${i}`] = 25);
-            break;
-          case 2:
-            selectedOptions[i] === "Other"
-              ? (formData[`q${i}`] = `Male`)
-              : (formData[`q${i}`] = `${selectedOptions[i]}`);
-            break;
-          case 3:
-            selectedOptions[i] === "0.0-3.3"
-              ? (formData[`q${i}`] = 1.7)
-              : selectedOptions[i] === "6.6-9.9"
-              ? (formData[`q${i}`] = 8.5)
-              : (formData[`q${i}`] = 5.1);
-            break;
-          case 17:
-            selectedOptions[i] === "15-20"
-              ? (formData[`q${i}`] = 17)
-              : selectedOptions[i] === "25-30"
-              ? (formData[`q${i}`] = 27)
-              : (formData[`q${i}`] = 22);
-            break;
-          case 13:
-          case 14:
-            selectedOptions[i] === "Neutral"
-              ? (formData[`q${i}`] = `No`)
-              : (formData[`q${i}`] = `${selectedOptions[i]}`);
-            break;
-        }
-
-        if (
-          i === 0 ||
-          i === 2 ||
-          i === 3 ||
-          i === 4 ||
-          i === 5 ||
-          i === 13 ||
-          i === 14 ||
-          i === 15 ||
-          i === 17
-        )
-          //Skipping exceptional cases handled above
-          continue;
-
-        formData[`q${i}`] = `${selectedOptions[i]}`; // storing values in json object as it is for normal cases
-      }
-
-      // Posting form data to get assessment Score
-      let score = -1;
-      try{
-        await axios
-        .post(`${BASE_URL}/api/user/`, {
-          data: formData,
-        })
-        .then((res) => {
-          score = res.data.score;
-        });
-      }catch(error){
-        console.error(`Error in posting formData: ${error}`)
+      const formData = prepareFormDataObj(selectedOptions);
+      const score = await getUserScore(formData);
+      if (score === -1) {
+        console.error(
+          "Form Data posted but response not received. Maybe ML Model is not working properly."
+        );
       }
 
       // Hide loader after score is fetched
       hideLoader();
+
       // Store the score and timestamp in the local storage
       const timestamp = new Date().getTime();
       localStorage.setItem("score", score);
-      localStorage.setItem("timestamp",timestamp);
+      localStorage.setItem("timestamp", timestamp);
       // Navigate to result page after score is fetched
       navigateTo("/result", { state: { assessmentScore: score } });
     }
   }
-
-  // Question's Option Choice
-  const [selectedOptions, setSelectedOptions] = useState(Array(19).fill("")); // State to manage selected options for 19 questions
 
   // Function to handle selecting an option for a specific question
   const handleSelectOption = (questionIndex, option) => {
@@ -132,10 +57,22 @@ function AssessmentPage() {
     setSelectedOptions(newSelectedOptions);
   };
 
+  // Show & Hide Model
+  const openModal = () => setshowModal(true);
+  const closeModal = () => setshowModal(false);
+
+  // Show & Hide Loader
+  const showLoader = () => setLoader(true);
+  const hideLoader = () => setLoader(false);
+
   return (
     <>
-          {showModal && (
-        <Modal alert="Alert" alertError="Please answer all Questions!" closeModal={closeModal} />
+      {showModal && (
+        <Modal
+          alert="Alert"
+          alertError="Please answer all Questions!"
+          closeModal={closeModal}
+        />
       )}
       <div
         className="trackingContainer bg-[image:var(--assessmentPageBg)] bg-no-repeat bg-center bg-cover relative font-primary"

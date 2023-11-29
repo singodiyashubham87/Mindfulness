@@ -2,67 +2,51 @@ import logo from "../assets/images/logo.png";
 import trackingPageBg from "../assets/images/trackingPageBg.png";
 import mediumTrackingPageBg from "../assets/images/mediumTrackingPageBg.png";
 import Loader from "../components/Loader";
+import AuthLoader from "../components/AuthLoader";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import TrackDiv from "../components/TrackDiv";
 import LogoutButton from "../components/Buttons/LogoutButton";
-import {BASE_URL} from "../utils/baseURL";
-
+import { getData, getTrackingData } from "../utils/getTrackingData";
 
 function TrackingPage() {
-  const { logout, isLoading, user } = useAuth0();
+  const { logout, isLoading, user, isAuthenticated } = useAuth0();
   const [loader, setLoader] = useState(false); //loader variable
+  const [authLoader, setAuthLoader] = useState(false); //authLoader variable
   const [trackingData, setTrackingData] = useState([]); //tracking data array
   const [showGetDataButton, setShowGetDataButton] = useState(true);
-  
 
   useEffect(() => {
-    if(localStorage.getItem("getData") == "false") {
-      getData({ email: "examplee@gmail.com" });
-      setShowGetDataButton(false);
+    if (user) {
+      if (localStorage.getItem("getData") == "false") {
+        const fetchData = async () => {
+          showAuthLoader();
+          const reqBody = {
+            email: user.email,
+          };
+          await getData(reqBody, setShowGetDataButton, setTrackingData);
+          hideAuthLoader();
+        };
+        fetchData();
+      }
     }
-  },[])
+  }, [user]);
 
-  // Get Track Data from Backend
-  const getData = async (reqBody) => {
+  // Handle click on Get Tracking Data button
+  const handleGetTrackingData = async () => {
     showLoader();
-    try{
-      const res = await axios.get(`${BASE_URL}/api/user/`, {
-      params: reqBody,
-    });
-    setTrackingData(res.data);
-    }catch(error){
-      console.error(`Error in getting tracking data: ${error}`)
-    }
+    const reqBody = {
+      email: user.email,
+    };
+    await getTrackingData(reqBody, setShowGetDataButton, setTrackingData);
     hideLoader();
-  };
-
-  // Function to handle click on Get Tracking Data button
-  const handleGetTrackingData = () => {
-    try {
-      // Show loader while getting data from backend
-      showLoader();
-
-      const reqBody = { email: "examplee@gmail.com" };
-      getData(reqBody);
-
-      // Hide the "Get Tracking Data" button and set local storage variable value to false
-      setShowGetDataButton(false);
-      localStorage.setItem("getData", "false");
-
-    } catch (error) {
-      console.error("Error fetching tracking data:", error);
-    } finally {
-      // Hide loader after fetching data
-      hideLoader(true);
-    }
   };
 
   // Handle user logout
   const handleLogout = () => {
-    localStorage.clear(); // Clear local storage before logging out
+    //Remove get tracking data variable from localStorage before logging out
+    localStorage.removeItem("getData");
     const redirectUri = import.meta.env.VITE_AUTH0_REDIRECT_URL;
     logout({ logoutParams: { returnTo: redirectUri } });
   };
@@ -71,8 +55,12 @@ function TrackingPage() {
   const showLoader = () => setLoader(true);
   const hideLoader = () => setLoader(false);
 
+  // Show & Hide Auth Loader component
+  const showAuthLoader = () => setAuthLoader(true);
+  const hideAuthLoader = () => setAuthLoader(false);
+
   // Returns Authentication Loader component if authentication is in progress
-  if (isLoading) {
+  if (isLoading || !isAuthenticated) {
     return <Loader />;
   }
 
@@ -87,7 +75,7 @@ function TrackingPage() {
               className=" cursor-pointer vvsm:w-[5rem] msm:w-[6rem] lg:w-[8rem]"
             />
           </Link>
-        <LogoutButton handleLogout={handleLogout}/>
+          <LogoutButton handleLogout={handleLogout} />
         </div>
 
         <div className="w-full overflow-hidden h-[70%] absolute bottom-[0]">
@@ -115,7 +103,7 @@ function TrackingPage() {
             </h3>
           </div>
           <div className="assessmentHistory flex flex-col justify-center items-center w-full min-h-fit  flex-grow-1">
-            {!showGetDataButton? (
+            {!showGetDataButton ? (
               <>
                 <h3 className="assessmentHistory text-[1.5rem] mb-[0.5rem] md:text-[2rem]">
                   Assessment History
@@ -155,6 +143,9 @@ function TrackingPage() {
           </div>
         </div>
         {loader && <Loader />}
+        {authLoader && (
+          <AuthLoader loadingText="Fetching data from server..." />
+        )}
       </div>
     </>
   );
