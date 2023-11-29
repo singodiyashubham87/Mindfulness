@@ -27,6 +27,7 @@ function TrackingPage() {
 
   // Get Track Data from Backend
   const getData = async (reqBody) => {
+    showLoader();
     try{
       const res = await axios.get(`${BASE_URL}/api/user/`, {
       params: reqBody,
@@ -35,6 +36,7 @@ function TrackingPage() {
     }catch(error){
       console.error(`Error in getting tracking data: ${error}`)
     }
+    hideLoader();
   };
 
   // Function to handle click on Get Tracking Data button

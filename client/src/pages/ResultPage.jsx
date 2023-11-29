@@ -149,7 +149,7 @@ function ResultPage() {
       {authLoader && (
         <AuthLoader loadingText="Getting personalised Recommendations..." />
       )}
-      <div className="resultContainer bg-[#FFCE00] w-[100%] h-[100vh] relative font-primary flex justify-center items-center relative">
+      <div className="resultContainer py-[15rem] bg-[#FFCE00] w-[100%] min-h-[100vh] relative font-primary flex justify-center items-center relative">
         <div className="w-[95dvw] flex items-center px-[0.1rem] sm:px-[2rem] mt-[1rem] justify-between md:w-[99dvw] lg:px-[3rem] 2xl:px-[4rem] lg:mt-[1rem] absolute top-[1rem]">
           <Link to={"/"}>
             <img
@@ -165,12 +165,12 @@ function ResultPage() {
           )}
         </div>
 
-        <div className="resultText w-[85%] h-[55%] md:h-[60%] md:w-[75%] flex flex-col gap-[1rem] justify-evenly items-center">
+        <div className="resultText w-[85%] h-[55%] md:h-[60%] md:w-[75%] flex flex-col gap-[1rem] justify-evenly items-center md:gap-[2rem] z-[1]">
           <h1 className="vvsm:text-[2.5rem] vsm:text-[3.5rem] gsm:text-[4rem] md:text-[5rem] leading-[1.2]">
             {status}
           </h1>
           <div className="testResult bg-[#FF7F1E] rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] py-[0.5rem] text-center">
-            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white leading-[2.3rem] flex flex-col">
+            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white flex flex-col">
               Test Result:{" "}
               <span className="text-black">
                 {gptTestResult ? gptTestResult : testResult}
@@ -195,7 +195,7 @@ function ResultPage() {
           </div>
 
           <div className="testResult bg-[#2596be] rounded-[2rem] vvsm:rounded-[1rem] px-[2rem] py-[0.5rem] text-center">
-            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white leading-[2.3rem] flex flex-col">
+            <h2 className="vvsm:text-[1.3rem] vsm:text-[1.5rem] msm:text-[1.7rem] gsm:text-[2rem] 2xl:text-[3rem] md:text-[2.5rem] lg:text-[2.8rem] text-white flex flex-col">
               Helpline Number:
               <span className="text-black">{helplineNumber}</span>
             </h2>
