@@ -23,10 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-31!fpzrsda2o8n)u35f9ap5x5y$-09c@q0*)r2e%@dlw7(!$_%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = ['localhost','mindfulness.vercel.app']
+# CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173", 
+    "https://mindfulness.vercel.app",
+]
 
 
 
