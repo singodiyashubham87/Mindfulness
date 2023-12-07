@@ -3,6 +3,7 @@ node_modules
 venv
 server-env
 __pycache__
+.sqlite3
 *.sqlite3
 *.pyc
 .vscode
