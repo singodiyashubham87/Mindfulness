@@ -1,6 +1,6 @@
 <h1 align="center">Mindfulness - Mental Health Assessment</h1>
 <div align="center"><img src="./client/src/assets/images/logo.png" width="200px" height="200px"/></div>
-<div align="center">Mindfulness is a web app designed for students to assess their mental health status. It utilizes a machine learning model, powered by Jupyter Notebook, to provide personalized mental health suggestions based on user responses to a 20-question MCQ assessment. The app also integrates with the OpenAI API for real-time recommendation generation using ChatGPT. Users can save their assessment data, view their mental health status, and access personalized recommendations in the profile section.</div>
+<div align="center">Mindfulness is a web app designed for students to assess their mental health status. It utilizes a machine learning model, powered by ML libraries like Scikit-learn/Numpy/Pandas etc, to provide personalized mental health suggestions based on user responses to a 20-question MCQ assessment. The app also integrates with the OpenAI API for real-time recommendation generation using ChatGPT. Users can save their assessment data, view their mental health status, and access personalized recommendations in the profile section.</div>
 
 ## Tech Stack
 
@@ -10,7 +10,7 @@
 - **OpenAI:** Integration for real-time recommendation generation.
 - **PostgreSQL:** Database for storing user data.
 - **Django:** Backend framework for building the server side.
-- **Jupyter Notebook:** Used for training the machine learning model.
+- **Scikit-learn/Pandas/Numpy:** Used for training the machine learning model.
 
 ## Getting Started
 
