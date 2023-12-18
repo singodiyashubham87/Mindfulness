@@ -15,7 +15,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       domain={domain}
       clientId={clientId}
       useRefreshTokens={true}
-      cacheLocation="memory"
       authorizationParams={{
         redirect_uri: redirectUri
       }}
